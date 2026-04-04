@@ -379,19 +379,29 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
         referral_code: params.get('ref')
       })
     });
-    const data = await resp.json();
-    if (resp.ok && (data.status === 'captured' || data.status === 'duplicate')) {
+
+    let data = null;
+    try { data = await resp.json(); } catch (_) { data = null; }
+
+    if (resp.ok) {
       document.getElementById('p10-form').style.display = 'none';
       const s = document.getElementById('p10-success');
       s.style.display = 'block';
-      if (data.status === 'duplicate') s.querySelector('p').textContent = 'Ya estas en la lista! Te avisaremos cuando abramos.';
+      if (data && data.status === 'duplicate') s.querySelector('p').textContent = 'Ya estas en la lista! Te avisaremos cuando abramos.';
+    } else if (data && data.status === 'duplicate') {
+      document.getElementById('p10-form').style.display = 'none';
+      const s = document.getElementById('p10-success');
+      s.style.display = 'block';
+      s.querySelector('p').textContent = 'Ya estas en la lista! Te avisaremos cuando abramos.';
     } else {
-      showErr(data.detail || 'Error al registrarte. Intenta de nuevo.');
-      btn.textContent = orig; btn.disabled = false;
+      throw new Error(data?.detail || 'Error ' + resp.status);
     }
   } catch(err) {
-    showErr('No pudimos conectar. Verifica tu conexion e intenta de nuevo.');
-    btn.textContent = orig; btn.disabled = false;
+    showErr('No pudimos completar el registro. Intenta nuevamente.');
+    console.error('Lead capture error:', err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = orig;
   }
 });
 
