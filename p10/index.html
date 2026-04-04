@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesionales10 — Proximamente</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; color:#1a1a2e; background:#fff; }
+
+  /* P10 Official Colors */
+  :root {
+    --navy: #0A0A4A;
+    --navy-light: #1a1a6e;
+    --navy-soft: #2E3A8C;
+    --white: #ffffff;
+    --gray-light: #f5f6fa;
+    --gray-text: #555;
+    --accent: #3B82F6;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy-soft) 100%);
+    color: var(--white);
+    padding: 80px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; bottom:0; left:0; right:0; height:80px;
+    background: linear-gradient(transparent, white);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.85);
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .hero h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.5;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--white);
+    color: var(--navy);
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-cta:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,0.2); }
+
+  /* VALUE PROPS */
+  .value-section {
+    padding: 60px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 10px;
+  }
+  .value-card {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 16px;
+    background: var(--gray-light);
+    border: 1px solid #e8e8f0;
+  }
+  .value-icon {
+    width: 56px; height: 56px;
+    background: var(--navy);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 1.5rem;
+  }
+  .value-card h3 { font-size:1.1rem; font-weight:700; color:var(--navy); margin-bottom:8px; }
+  .value-card p { font-size:0.9rem; color:var(--gray-text); line-height:1.6; }
+
+  /* AUDIENCE BLOCKS */
+  .audience-section {
+    padding: 50px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+  }
+  .audience-block {
+    padding: 36px 28px;
+    border-radius: 16px;
+    border: 2px solid #e8e8f0;
+  }
+  .audience-block.pro { border-color: var(--navy); background: linear-gradient(180deg, rgba(10,10,74,0.03), transparent); }
+  .audience-block.cli { border-color: var(--accent); background: linear-gradient(180deg, rgba(59,130,246,0.03), transparent); }
+  .audience-block h2 { font-size:1.4rem; font-weight:800; margin-bottom:14px; color:var(--navy); }
+  .audience-block p { font-size:0.95rem; color:var(--gray-text); line-height:1.7; margin-bottom:12px; }
+  .audience-cta {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: transform 0.2s;
+  }
+  .audience-cta:hover { transform:translateY(-1px); }
+  .audience-cta.pro-btn { background:var(--navy); color:white; }
+  .audience-cta.cli-btn { background:var(--accent); color:white; }
+
+  /* FORM */
+  .form-section {
+    padding: 60px 20px;
+    background: var(--gray-light);
+  }
+  .form-container {
+    max-width: 520px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px 32px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #e8e8f0;
+  }
+  .form-container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e8;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: white;
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--navy);
+  }
+  .form-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .form-submit:hover { background: var(--navy-light); transform:translateY(-1px); }
+  .form-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+  .form-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 12px;
+  }
+  .form-success {
+    text-align:center; padding:30px 20px; color:var(--navy);
+  }
+  .form-success h3 { font-size:1.3rem; margin-bottom:10px; }
+  .form-success p { font-size:0.95rem; color:var(--gray-text); }
+  .form-error {
+    text-align:center; padding:10px; margin-top:10px;
+    background:#fef2f2; color:#c0392b; border-radius:8px;
+    font-size:0.85rem; display:none;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--navy);
+    color: rgba(255,255,255,0.7);
+  }
+  .footer-disclaimer {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-info { font-size: 0.75rem; opacity: 0.5; }
+  .footer-en { font-size: 0.7rem; opacity: 0.4; margin-top: 12px; font-style: italic; max-width:500px; margin-left:auto; margin-right:auto; }
+
+  @media (max-width: 500px) {
+    .hero h1 { font-size:2rem; }
+    .hero h2 { font-size:1.05rem; }
+    .audience-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Solo un puente de contacto</div>
+  <h1>Servicios confiables<br>para la comunidad hispana en Miami.</h1>
+  <h2>El directorio inteligente que conecta profesionales verificados con personas que los necesitan.</h2>
+  <p style="max-width:540px;margin:0 auto 32px;font-size:0.95rem;opacity:0.8;line-height:1.6;">
+    Conectamos profesionales verificados con personas que necesitan sus servicios. Con tecnologia, confianza y transparencia.
+  </p>
+  <a href="#formulario" class="hero-cta">Quiero ser de los primeros &rarr;</a>
+</section>
+
+<!-- VALUE PROPS -->
+<section class="value-section">
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">&#128269;</div>
+      <h3>Busqueda inteligente</h3>
+      <p>Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">&#9989;</div>
+      <h3>Verificacion real</h3>
+      <p>Cada profesional pasa verificacion de identidad. Documento mas rostro en 60 segundos. Sabes con quien estas hablando.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">&#11088;</div>
+      <h3>Reputacion con evidencia</h3>
+      <p>Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por si sola.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience-section">
+  <div class="audience-grid">
+    <div class="audience-block pro">
+      <h2>Tienes un oficio, un arte, un don?</h2>
+      <p>No importa si tienes titulo formal o no. Lo que importa es que haces bien tu trabajo y lo haces con responsabilidad.</p>
+      <p>Profesionales10 te conecta con personas que necesitan lo que tu sabes hacer. Tu pones el servicio. Nosotros ponemos la tecnologia.</p>
+      <p style="font-size:0.85rem;color:var(--navy);font-weight:600;">Sin costo por registrarte. Solo pagas una cuota cuando completas un trabajo a traves de la plataforma.</p>
+      <a href="#formulario" class="audience-cta pro-btn">Registrarme como profesional &rarr;</a>
+    </div>
+    <div class="audience-block cli">
+      <h2>Buscas un profesional confiable?</h2>
+      <p>Un plomero que hable espanol? Un electricista verificado? Alguien que cuide tu jardin con responsabilidad?</p>
+      <p>Deja de buscar en grupos de Facebook. Profesionales10 te muestra personas verificadas, calificadas por otros clientes, en tu zona.</p>
+      <p style="font-size:0.85rem;color:var(--accent);font-weight:600;">Buscar es gratis. Siempre.</p>
+      <a href="#formulario" class="audience-cta cli-btn">Avisarme cuando este listo &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="formulario">
+  <div class="form-container">
+    <h2>Se de los primeros en Profesionales10</h2>
+    <p style="text-align:center;font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:20px;">Muy pronto en Miami-Dade.</p>
+    <form id="p10-form">
+      <div class="form-group">
+        <label for="p10-name">Tu nombre</label>
+        <input id="p10-name" type="text" placeholder="Nombre completo" required>
+      </div>
+      <div class="form-group">
+        <label for="p10-email">Tu email</label>
+        <input id="p10-email" type="email" placeholder="tu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="p10-type">Que te describe mejor?</label>
+        <select id="p10-type" required>
+          <option value="">Selecciona una opcion</option>
+          <option value="professional">Soy profesional y ofrezco servicios</option>
+          <option value="prospect">Busco un profesional para un servicio</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="p10-city">Ciudad (opcional)</label>
+        <input id="p10-city" type="text" placeholder="Miami, Doral, Hialeah...">
+      </div>
+      <button id="p10-submit" type="submit" class="form-submit">Unirme a la lista</button>
+      <div id="p10-error" class="form-error"></div>
+      <p class="form-note">Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.</p>
+    </form>
+    <div id="p10-success" class="form-success" style="display:none">
+      <h3>&#10003; Listo! Estas en la lista.</h3>
+      <p>Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-disclaimer">
+    Profesionales10 es solo un puente de contacto. No participa en negociaciones ni acuerdos de valores o pagos entre cliente y profesional.
+  </div>
+  <div class="footer-info">
+    Profesionales10 LLC &mdash; Miami, Florida<br>
+    info@ecosistema-adsi.com
+  </div>
+  <div class="footer-en">
+    Profesionales10 is only a contact bridge. It does not participate in negotiations or payment agreements between client and professional.
+  </div>
+</footer>
+
+<script>
+// ODI Lead Capture — P10
+const ODI_API = "https://api.liveodi.com";
+
+document.getElementById('p10-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('p10-submit');
+  const orig = btn.textContent;
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const name = document.getElementById('p10-name').value.trim();
+  const email = document.getElementById('p10-email').value.trim();
+  const leadType = document.getElementById('p10-type').value || 'prospect';
+  const city = document.getElementById('p10-city').value.trim() || null;
+  const params = new URLSearchParams(window.location.search);
+
+  try {
+    const resp = await fetch(ODI_API + '/api/leads/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, email, phone: null, city,
+        industry_id: "p10", brand_id: "profesionales10",
+        lead_type: leadType,
+        interests: leadType === 'professional' ? ['registro_profesional'] : [],
+        source: "landing", source_url: window.location.href,
+        utm_source: params.get('utm_source'),
+        utm_medium: params.get('utm_medium'),
+        utm_campaign: params.get('utm_campaign'),
+        referral_code: params.get('ref')
+      })
+    });
+    const data = await resp.json();
+    if (resp.ok && (data.status === 'captured' || data.status === 'duplicate')) {
+      document.getElementById('p10-form').style.display = 'none';
+      const s = document.getElementById('p10-success');
+      s.style.display = 'block';
+      if (data.status === 'duplicate') s.querySelector('p').textContent = 'Ya estas en la lista! Te avisaremos cuando abramos.';
+    } else {
+      showErr(data.detail || 'Error al registrarte. Intenta de nuevo.');
+      btn.textContent = orig; btn.disabled = false;
+    }
+  } catch(err) {
+    showErr('No pudimos conectar. Verifica tu conexion e intenta de nuevo.');
+    btn.textContent = orig; btn.disabled = false;
+  }
+});
+
+function showErr(msg) {
+  const el = document.getElementById('p10-error');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+</script>
+
+</body>
+</html>
