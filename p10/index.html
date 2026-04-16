@@ -277,9 +277,7 @@
 
 <!-- HERO -->
 <section class="hero" style="padding-top:30px;">
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="https://api.liveodi.com/assets/videos/p10_hero.mp4" type="video/mp4">
-  </video>
+  <video id="hero-vid" class="hero-video" autoplay muted playsinline></video>
   <div style="text-align:left;padding:0 24px 20px;position:relative;z-index:2;">
     <img src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10" style="height:100px;width:auto;">
   </div>
@@ -297,14 +295,14 @@
 <section class="value-section">
   <div class="value-grid">
     <div class="value-card">
-      <video class="value-card-img" autoplay muted loop playsinline><source src="https://api.liveodi.com/assets/videos/p10_busqueda.mp4" type="video/mp4"></video>
+      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_busqueda.jpg" alt="Búsqueda inteligente">
       <div class="value-card-body">
         <h3>&#128269; Búsqueda inteligente</h3>
         <p>Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
       </div>
     </div>
     <div class="value-card">
-      <video class="value-card-img" autoplay muted loop playsinline><source src="https://api.liveodi.com/assets/videos/p10_verificacion.mp4" type="video/mp4"></video>
+      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_verificacion.jpg" alt="Verificación real">
       <div class="value-card-body">
         <h3>&#9989; Verificación real</h3>
         <p>Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.</p>
@@ -459,6 +457,26 @@ function showErr(msg) {
   el.textContent = msg; el.style.display = 'block';
   setTimeout(() => el.style.display = 'none', 5000);
 }
+</script>
+
+<script>
+// Hero video sequence: Búsqueda → Verificación → Profesional llega
+(function() {
+  const vids = [
+    'https://api.liveodi.com/assets/videos/p10_busqueda.mp4',
+    'https://api.liveodi.com/assets/videos/p10_verificacion.mp4',
+    'https://api.liveodi.com/assets/videos/p10_hero.mp4'
+  ];
+  let idx = 0;
+  const el = document.getElementById('hero-vid');
+  function playNext() {
+    el.src = vids[idx];
+    el.play();
+    idx = (idx + 1) % vids.length;
+  }
+  el.addEventListener('ended', playNext);
+  playNext();
+})();
 </script>
 
 </body>
