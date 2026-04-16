@@ -460,23 +460,38 @@ function showErr(msg) {
 </script>
 
 <script>
-// Hero video sequence: Búsqueda → Verificación → Profesional llega
+// Hero video sequence with blob preload
 (function() {
   const urls = [
     'https://api.liveodi.com/assets/videos/p10_busqueda.mp4',
     'https://api.liveodi.com/assets/videos/p10_verificacion.mp4',
     'https://api.liveodi.com/assets/videos/p10_hero.mp4'
   ];
-  const vids = urls.map(u => { const v = document.createElement('video'); v.src = u; v.preload = 'auto'; return v; });
+  const blobs = [];
   let idx = 0;
   const el = document.getElementById('hero-vid');
+
   function playNext() {
-    el.src = urls[idx];
+    if (blobs[idx]) {
+      el.src = blobs[idx];
+    } else {
+      el.src = urls[idx];
+    }
     el.play();
     idx = (idx + 1) % urls.length;
   }
+
   el.addEventListener('ended', playNext);
-  playNext();
+
+  // Preload all as blobs
+  urls.forEach((u, i) => {
+    fetch(u).then(r => r.blob()).then(b => { blobs[i] = URL.createObjectURL(b); });
+  });
+
+  // Start first immediately
+  el.src = urls[0];
+  el.play();
+  idx = 1;
 })();
 </script>
 
