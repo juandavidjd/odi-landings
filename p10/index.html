@@ -462,17 +462,18 @@ function showErr(msg) {
 <script>
 // Hero video sequence: Búsqueda → Verificación → Profesional llega
 (function() {
-  const vids = [
+  const urls = [
     'https://api.liveodi.com/assets/videos/p10_busqueda.mp4',
     'https://api.liveodi.com/assets/videos/p10_verificacion.mp4',
     'https://api.liveodi.com/assets/videos/p10_hero.mp4'
   ];
+  const vids = urls.map(u => { const v = document.createElement('video'); v.src = u; v.preload = 'auto'; return v; });
   let idx = 0;
   const el = document.getElementById('hero-vid');
   function playNext() {
-    el.src = vids[idx];
+    el.src = urls[idx];
     el.play();
-    idx = (idx + 1) % vids.length;
+    idx = (idx + 1) % urls.length;
   }
   el.addEventListener('ended', playNext);
   playNext();
