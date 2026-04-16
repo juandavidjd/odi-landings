@@ -277,7 +277,8 @@
 
 <!-- HERO -->
 <section class="hero" style="padding-top:30px;">
-  <video id="hero-vid" class="hero-video" autoplay muted playsinline></video>
+  <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
+  <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
   <div style="text-align:left;padding:0 24px 20px;position:relative;z-index:2;">
     <img src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10" style="height:100px;width:auto;">
   </div>
@@ -460,38 +461,40 @@ function showErr(msg) {
 </script>
 
 <script>
-// Hero video sequence with blob preload
+// Hero video sequence — dual player swap
 (function() {
   const urls = [
     'https://api.liveodi.com/assets/videos/p10_busqueda.mp4',
     'https://api.liveodi.com/assets/videos/p10_verificacion.mp4',
     'https://api.liveodi.com/assets/videos/p10_hero.mp4'
   ];
-  const blobs = [];
-  let idx = 0;
-  const el = document.getElementById('hero-vid');
+  const a = document.getElementById('hero-vid-a');
+  const b = document.getElementById('hero-vid-b');
+  let idx = 0, current = a, next = b;
 
-  function playNext() {
-    if (blobs[idx]) {
-      el.src = blobs[idx];
-    } else {
-      el.src = urls[idx];
-    }
-    el.play();
-    idx = (idx + 1) % urls.length;
+  function prepareNext() {
+    const nextIdx = (idx + 1) % urls.length;
+    next.src = urls[nextIdx];
+    next.load();
   }
 
-  el.addEventListener('ended', playNext);
+  function swap() {
+    idx = (idx + 1) % urls.length;
+    current.style.opacity = '0';
+    next.style.opacity = '0.3';
+    next.play();
+    const tmp = current; current = next; next = tmp;
+    prepareNext();
+  }
 
-  // Preload all as blobs
-  urls.forEach((u, i) => {
-    fetch(u).then(r => r.blob()).then(b => { blobs[i] = URL.createObjectURL(b); });
-  });
+  a.addEventListener('ended', swap);
+  b.addEventListener('ended', swap);
 
-  // Start first immediately
-  el.src = urls[0];
-  el.play();
-  idx = 1;
+  a.src = urls[0];
+  a.style.opacity = '0.3';
+  a.play();
+  idx = 0;
+  prepareNext();
 })();
 </script>
 
