@@ -103,10 +103,19 @@
   }
   .value-card {
     text-align: center;
-    padding: 30px 20px;
+    padding: 0;
     border-radius: 16px;
     background: var(--gray-light);
     border: 1px solid #e8e8f0;
+    overflow: hidden;
+  }
+  .value-card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .value-card-body {
+    padding: 20px;
   }
   .value-icon {
     width: 56px; height: 56px;
@@ -277,19 +286,25 @@
 <section class="value-section">
   <div class="value-grid">
     <div class="value-card">
-      <div class="value-icon">&#128269;</div>
-      <h3>Búsqueda inteligente</h3>
-      <p>Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
+      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_busqueda.jpg" alt="Búsqueda inteligente">
+      <div class="value-card-body">
+        <h3>&#128269; Búsqueda inteligente</h3>
+        <p>Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
+      </div>
     </div>
     <div class="value-card">
-      <div class="value-icon">&#9989;</div>
-      <h3>Verificación real</h3>
-      <p>Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.</p>
+      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_verificacion.jpg" alt="Verificación real">
+      <div class="value-card-body">
+        <h3>&#9989; Verificación real</h3>
+        <p>Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.</p>
+      </div>
     </div>
     <div class="value-card">
-      <div class="value-icon">&#11088;</div>
-      <h3>Reputación con evidencia</h3>
-      <p>Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por sí sola.</p>
+      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_reputacion.jpg" alt="Reputación con evidencia">
+      <div class="value-card-body">
+        <h3>&#11088; Reputación con evidencia</h3>
+        <p>Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por sí sola.</p>
+      </div>
     </div>
   </div>
   <p style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
