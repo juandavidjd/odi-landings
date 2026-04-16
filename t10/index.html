@@ -9,14 +9,14 @@
 <meta property="og:url" content="https://www.teveo10.club" />
 <meta property="og:title" content="Teveo10 — Comunidad hispana en Miami" />
 <meta property="og:description" content="Actividades reales para hispanos en Miami-Dade. Personas verificadas, comunidad por referidos, experiencias que importan." />
-<meta property="og:image" content="https://api.liveodi.com/assets/logos/t10_og.jpg?v=20260413" />
+<meta property="og:image" content="https://api.liveodi.com/assets/logos/t10_og.jpg?v=20260415" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Teveo10 — Comunidad hispana en Miami" />
 <meta name="twitter:description" content="Actividades reales para hispanos en Miami-Dade. Personas verificadas, comunidad por referidos." />
-<meta name="twitter:image" content="https://api.liveodi.com/assets/logos/t10_og.jpg?v=20260413" />
+<meta name="twitter:image" content="https://api.liveodi.com/assets/logos/t10_og.jpg?v=20260415" />
 <link rel="icon" type="image/png" sizes="192x192" href="https://api.liveodi.com/assets/logos/t10_favicon.png?v=3" />
 <link rel="apple-touch-icon" href="https://api.liveodi.com/assets/logos/t10_favicon.png?v=3" />
 <style>
@@ -299,7 +299,7 @@
 <!-- HERO -->
 <section class="hero" style="padding-top:24px;">
   <div style="text-align:left;padding:0 24px 16px;position:relative;z-index:2;">
-    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=6" alt="Teveo10" style="height:80px;width:auto;">
+    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=7" alt="Teveo10" style="height:80px;width:auto;">
   </div>
   <h1>Conexiones auténticas<br>para hispanos en Miami.</h1>
   <h2>La comunidad donde personas reales se encuentran, comparten y crecen juntas.</h2>
@@ -313,26 +313,20 @@
 <!-- VALUE PROPS -->
 <section class="value-section">
   <div class="value-grid">
-    <div class="value-card">
-      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_actividades.jpg" alt="Actividades reales">
-      <div class="value-card-body">
-        <h3>&#127917; Actividades reales</h3>
-        <p>Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.</p>
-      </div>
+    <div class="value-card" style="padding:30px 20px;">
+      <div class="value-icon vi-1">&#127917;</div>
+      <h3>Actividades reales</h3>
+      <p>Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.</p>
     </div>
-    <div class="value-card">
-      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_verificadas.jpg" alt="Personas verificadas">
-      <div class="value-card-body">
-        <h3>&#129309; Personas verificadas</h3>
-        <p>Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.</p>
-      </div>
+    <div class="value-card" style="padding:30px 20px;">
+      <div class="value-icon vi-2">&#129309;</div>
+      <h3>Personas verificadas</h3>
+      <p>Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.</p>
     </div>
-    <div class="value-card">
-      <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_proposito.jpg" alt="Comunidad con propósito">
-      <div class="value-card-body">
-        <h3>&#127793; Comunidad con propósito</h3>
-        <p>No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.</p>
-      </div>
+    <div class="value-card" style="padding:30px 20px;">
+      <div class="value-icon vi-3">&#127793;</div>
+      <h3>Comunidad con propósito</h3>
+      <p>No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.</p>
     </div>
   </div>
   <p style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
@@ -354,7 +348,7 @@
       <strong>Teveo10 es para ti.</strong><br><br>
       No importa en qué etapa de tu vida estés. Lo que importa es que quieras ser parte de una comunidad que se cuida.
     </p>
-    <a href="#formulario" class="forwho-cta">Avisarme cuando abra &rarr;</a>
+    <a href="#formulario" class="forwho-cta">Avisarme cuando inicien &rarr;</a>
   </div>
 </section>
 
@@ -371,6 +365,10 @@
         <label for="t10-email">Tu email</label>
         <input id="t10-email" type="email" placeholder="tu@email.com" required>
       </div>
+      <div class="form-group">
+        <label for="t10-referido">Referido por</label>
+        <input id="t10-referido" type="text" placeholder="Nombre de quien te recomendó (opcional)">
+      </div>
       <div id="t10-interests" style="margin-bottom:18px;">
         <p class="interests-label">¿Qué actividades te interesan? (puedes elegir varias)</p>
         <div class="interests-grid">
@@ -386,7 +384,7 @@
       </div>
       <button id="t10-submit" type="submit" class="form-submit">Unirme a la lista</button>
       <div id="t10-error" class="form-error"></div>
-      <p class="form-note">Te contactaremos cuando estemos listos para abrir las puertas.<br>Sin spam. Solo invitaciones que valen la pena.</p>
+      <p class="form-note" style="font-weight:600;color:#444;font-size:0.82rem;">Te contactaremos cuando estemos listos para abrir las puertas.<br>Sin spam. Solo invitaciones que valen la pena.</p>
     </form>
     <div id="t10-success" class="form-success" style="display:none">
       <h3>&#10003; ¡Ya estás en la lista!</h3>
@@ -424,6 +422,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
 
   const name = document.getElementById('t10-name').value.trim();
   const email = document.getElementById('t10-email').value.trim();
+  const referido = document.getElementById('t10-referido').value.trim() || null;
   const interests = [];
   document.querySelectorAll('#t10-interests input[type="checkbox"]:checked')
     .forEach(cb => interests.push(cb.value));
@@ -442,7 +441,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
         utm_source: params.get('utm_source'),
         utm_medium: params.get('utm_medium'),
         utm_campaign: params.get('utm_campaign'),
-        referral_code: params.get('ref')
+        referral_code: referido || params.get('ref')
       })
     });
 
