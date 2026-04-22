@@ -309,7 +309,7 @@
   <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
   <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
   <div style="text-align:left;padding:0 24px 16px;position:relative;z-index:2;">
-    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=10" alt="Teveo10" style="height:80px;width:auto;">
+    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=11" alt="Teveo10" style="height:80px;width:auto;">
   </div>
   <h1>Conexiones auténticas<br>para hispanos en Miami.</h1>
   <h2>La comunidad donde personas reales se encuentran, comparten y crecen juntas.</h2>
@@ -381,28 +381,11 @@
         <label for="t10-email">Tu email</label>
         <input id="t10-email" type="email" placeholder="tu@email.com" required>
       </div>
-      <div class="form-group">
-        <label for="t10-referido">Referido por</label>
-        <input id="t10-referido" type="text" placeholder="Nombre de quien te recomendó (opcional)">
-      </div>
-      <div id="t10-interests" style="margin-bottom:18px;">
-        <p class="interests-label">¿Qué actividades te interesan? (puedes elegir varias)</p>
-        <div class="interests-grid">
-          <label class="interest-item"><input type="checkbox" value="charlas"> Charlas y conversatorios</label>
-          <label class="interest-item"><input type="checkbox" value="baile"> Clases de baile</label>
-          <label class="interest-item"><input type="checkbox" value="paseos"> Paseos y excursiones</label>
-          <label class="interest-item"><input type="checkbox" value="karaoke"> Karaoke</label>
-          <label class="interest-item"><input type="checkbox" value="cine_foro"> Cine foro</label>
-          <label class="interest-item"><input type="checkbox" value="arte"> Arte y exposiciones</label>
-          <label class="interest-item"><input type="checkbox" value="crecimiento"> Crecimiento personal</label>
-          <label class="interest-item"><input type="checkbox" value="cocina"> Cocina y recetas</label>
-          <label class="interest-item"><input type="checkbox" id="t10-otro-check" value="otro"> Otro</label>
-        </div>
-        <div id="t10-otro-wrapper" style="display:none;margin-top:10px;">
-          <input id="t10-otro-input" type="text" list="t10-actividades-list" placeholder="¿Qué actividad?" autocomplete="off" style="width:100%;padding:10px 14px;border:2px solid #e0e0e8;border-radius:10px;font-size:0.9rem;font-family:inherit;">
-          <datalist id="t10-actividades-list"></datalist>
-          <p id="t10-otro-hint" style="font-size:0.72rem;color:#666;margin-top:6px;"></p>
-        </div>
+      <div class="form-group" style="position:relative;">
+        <label for="t10-actividad">¿Cuál es tu actividad o evento?</label>
+        <input id="t10-actividad" type="text" placeholder="Escribe para ver sugerencias..." autocomplete="off">
+        <div id="t10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
+        <p id="t10-actividad-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
       </div>
       <button id="t10-submit" type="submit" class="form-submit">Unirme a la lista</button>
       <div id="t10-error" class="form-error"></div>
@@ -442,33 +425,55 @@ let T10_ACTIVIDADES = [];
     const r = await fetch(ODI_API + '/api/t10/actividades');
     const d = await r.json();
     T10_ACTIVIDADES = (d.actividades || []).map(a => a.nombre);
-    const dl = document.getElementById('t10-actividades-list');
-    dl.innerHTML = T10_ACTIVIDADES.map(n => `<option value="${n}">`).join('');
   } catch(e) { console.error('No se pudieron cargar actividades:', e); }
 })();
 
-// Mostrar/ocultar input "Otro"
-document.getElementById('t10-otro-check').addEventListener('change', function() {
-  const w = document.getElementById('t10-otro-wrapper');
-  const i = document.getElementById('t10-otro-input');
-  if (this.checked) {
-    w.style.display = 'block';
-    setTimeout(() => i.focus(), 50);
-  } else {
-    w.style.display = 'none';
-    i.value = '';
-    document.getElementById('t10-otro-hint').textContent = '';
+const t10Input = document.getElementById('t10-actividad');
+const t10Sugs = document.getElementById('t10-sugerencias');
+const t10Hint = document.getElementById('t10-actividad-hint');
+
+function t10RenderSugerencias(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) { t10Sugs.style.display = 'none'; return; }
+  // Filtrar por inicio de palabra (si escribe "p" muestra los que empiezan con p)
+  const match = T10_ACTIVIDADES.filter(a => a.toLowerCase().startsWith(q));
+  if (match.length === 0) {
+    t10Sugs.style.display = 'none';
+    return;
+  }
+  t10Sugs.innerHTML = match.map(a =>
+    `<div class="t10-sug-item" style="padding:10px 14px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:0.9rem;" onmouseover="this.style.background='#f0fafa'" onmouseout="this.style.background='white'" data-val="${a.replace(/"/g,'&quot;')}">${a}</div>`
+  ).join('');
+  t10Sugs.style.display = 'block';
+  // Click handlers
+  t10Sugs.querySelectorAll('.t10-sug-item').forEach(el => {
+    el.addEventListener('click', () => {
+      t10Input.value = el.dataset.val;
+      t10Sugs.style.display = 'none';
+      t10Hint.textContent = '✓ Actividad existente';
+      t10Hint.style.color = '#008B8B';
+    });
+  });
+}
+
+t10Input.addEventListener('input', function() {
+  t10RenderSugerencias(this.value);
+  const v = this.value.trim();
+  if (!v) { t10Hint.textContent = ''; return; }
+  const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === v.toLowerCase());
+  t10Hint.textContent = existe ? '✓ Actividad existente' : 'Nueva actividad — la agregaremos';
+  t10Hint.style.color = existe ? '#008B8B' : '#666';
+});
+
+// Cerrar sugerencias si click fuera
+document.addEventListener('click', function(e) {
+  if (e.target !== t10Input && !t10Sugs.contains(e.target)) {
+    t10Sugs.style.display = 'none';
   }
 });
 
-// Hint actividad nueva vs existente
-document.getElementById('t10-otro-input').addEventListener('input', function() {
-  const v = this.value.trim();
-  const hint = document.getElementById('t10-otro-hint');
-  if (!v) { hint.textContent = ''; return; }
-  const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === v.toLowerCase());
-  hint.textContent = existe ? '✓ Actividad existente' : 'Nueva actividad — la agregaremos';
-  hint.style.color = existe ? '#008B8B' : '#666';
+t10Input.addEventListener('focus', function() {
+  if (this.value.trim()) t10RenderSugerencias(this.value);
 });
 
 document.getElementById('t10-form').addEventListener('submit', async function(e) {
@@ -480,24 +485,18 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
 
   const name = document.getElementById('t10-name').value.trim();
   const email = document.getElementById('t10-email').value.trim();
-  const referido = document.getElementById('t10-referido').value.trim() || null;
-  const interests = [];
-  document.querySelectorAll('#t10-interests input[type="checkbox"]:checked')
-    .forEach(cb => { if (cb.value !== 'otro') interests.push(cb.value); });
+  const actividad = t10Input.value.trim();
+  const interests = actividad ? [actividad] : [];
 
-  // "Otro" con texto
-  const otroCheck = document.getElementById('t10-otro-check').checked;
-  const otroValue = document.getElementById('t10-otro-input').value.trim();
-  if (otroCheck && otroValue) {
-    interests.push(otroValue);
-    // Registrar si es nueva
-    const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === otroValue.toLowerCase());
+  // Registrar actividad nueva si no existe
+  if (actividad) {
+    const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === actividad.toLowerCase());
     if (!existe) {
       try {
         await fetch(ODI_API + '/api/t10/actividades/nueva', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre: otroValue })
+          body: JSON.stringify({ nombre: actividad })
         });
       } catch(_) {}
     }
@@ -518,7 +517,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
         utm_source: params.get('utm_source'),
         utm_medium: params.get('utm_medium'),
         utm_campaign: params.get('utm_campaign'),
-        referral_code: referido || params.get('ref')
+        referral_code: params.get('ref')
       })
     });
 
