@@ -309,7 +309,7 @@
   <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
   <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
   <div style="text-align:left;padding:0 24px 16px;position:relative;z-index:2;">
-    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=9" alt="Teveo10" style="height:80px;width:auto;">
+    <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=10" alt="Teveo10" style="height:80px;width:auto;">
   </div>
   <h1>Conexiones auténticas<br>para hispanos en Miami.</h1>
   <h2>La comunidad donde personas reales se encuentran, comparten y crecen juntas.</h2>
@@ -396,6 +396,12 @@
           <label class="interest-item"><input type="checkbox" value="arte"> Arte y exposiciones</label>
           <label class="interest-item"><input type="checkbox" value="crecimiento"> Crecimiento personal</label>
           <label class="interest-item"><input type="checkbox" value="cocina"> Cocina y recetas</label>
+          <label class="interest-item"><input type="checkbox" id="t10-otro-check" value="otro"> Otro</label>
+        </div>
+        <div id="t10-otro-wrapper" style="display:none;margin-top:10px;">
+          <input id="t10-otro-input" type="text" list="t10-actividades-list" placeholder="¿Qué actividad?" autocomplete="off" style="width:100%;padding:10px 14px;border:2px solid #e0e0e8;border-radius:10px;font-size:0.9rem;font-family:inherit;">
+          <datalist id="t10-actividades-list"></datalist>
+          <p id="t10-otro-hint" style="font-size:0.72rem;color:#666;margin-top:6px;"></p>
         </div>
       </div>
       <button id="t10-submit" type="submit" class="form-submit">Unirme a la lista</button>
@@ -429,6 +435,42 @@
 // ODI Lead Capture — T10
 const ODI_API = "https://api.liveodi.com";
 
+// Cargar actividades T10 para autocompletado
+let T10_ACTIVIDADES = [];
+(async function loadActividades() {
+  try {
+    const r = await fetch(ODI_API + '/api/t10/actividades');
+    const d = await r.json();
+    T10_ACTIVIDADES = (d.actividades || []).map(a => a.nombre);
+    const dl = document.getElementById('t10-actividades-list');
+    dl.innerHTML = T10_ACTIVIDADES.map(n => `<option value="${n}">`).join('');
+  } catch(e) { console.error('No se pudieron cargar actividades:', e); }
+})();
+
+// Mostrar/ocultar input "Otro"
+document.getElementById('t10-otro-check').addEventListener('change', function() {
+  const w = document.getElementById('t10-otro-wrapper');
+  const i = document.getElementById('t10-otro-input');
+  if (this.checked) {
+    w.style.display = 'block';
+    setTimeout(() => i.focus(), 50);
+  } else {
+    w.style.display = 'none';
+    i.value = '';
+    document.getElementById('t10-otro-hint').textContent = '';
+  }
+});
+
+// Hint actividad nueva vs existente
+document.getElementById('t10-otro-input').addEventListener('input', function() {
+  const v = this.value.trim();
+  const hint = document.getElementById('t10-otro-hint');
+  if (!v) { hint.textContent = ''; return; }
+  const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === v.toLowerCase());
+  hint.textContent = existe ? '✓ Actividad existente' : 'Nueva actividad — la agregaremos';
+  hint.style.color = existe ? '#008B8B' : '#666';
+});
+
 document.getElementById('t10-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('t10-submit');
@@ -441,7 +483,26 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
   const referido = document.getElementById('t10-referido').value.trim() || null;
   const interests = [];
   document.querySelectorAll('#t10-interests input[type="checkbox"]:checked')
-    .forEach(cb => interests.push(cb.value));
+    .forEach(cb => { if (cb.value !== 'otro') interests.push(cb.value); });
+
+  // "Otro" con texto
+  const otroCheck = document.getElementById('t10-otro-check').checked;
+  const otroValue = document.getElementById('t10-otro-input').value.trim();
+  if (otroCheck && otroValue) {
+    interests.push(otroValue);
+    // Registrar si es nueva
+    const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === otroValue.toLowerCase());
+    if (!existe) {
+      try {
+        await fetch(ODI_API + '/api/t10/actividades/nueva', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre: otroValue })
+        });
+      } catch(_) {}
+    }
+  }
+
   const params = new URLSearchParams(window.location.search);
 
   try {

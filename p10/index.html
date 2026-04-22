@@ -364,6 +364,12 @@
           <option value="prospect">Busco un profesional para un servicio</option>
         </select>
       </div>
+      <div class="form-group" id="p10-profesion-group" style="display:none;">
+        <label for="p10-profesion">¿Cuál es tu profesión o servicio?</label>
+        <input id="p10-profesion" type="text" list="p10-categorias-list" placeholder="Plomería, Electricidad, Carpintería..." autocomplete="off">
+        <datalist id="p10-categorias-list"></datalist>
+        <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
+      </div>
       <div class="form-group">
         <label for="p10-city">Ciudad (opcional)</label>
         <input id="p10-city" type="text" placeholder="Miami, Doral, Hialeah...">
@@ -398,6 +404,42 @@
 // ODI Lead Capture — P10
 const ODI_API = "https://api.liveodi.com";
 
+// Cargar categorías para autocompletado
+let P10_CATEGORIAS = [];
+(async function loadCategorias() {
+  try {
+    const r = await fetch(ODI_API + '/categorias');
+    const d = await r.json();
+    P10_CATEGORIAS = (d.categorias || []).map(c => c.nombre_es);
+    const dl = document.getElementById('p10-categorias-list');
+    dl.innerHTML = P10_CATEGORIAS.map(n => `<option value="${n}">`).join('');
+  } catch(e) { console.error('No se pudieron cargar categorías:', e); }
+})();
+
+// Mostrar/ocultar campo profesión según tipo
+document.getElementById('p10-type').addEventListener('change', function() {
+  const g = document.getElementById('p10-profesion-group');
+  const f = document.getElementById('p10-profesion');
+  if (this.value === 'professional') {
+    g.style.display = 'block';
+    f.required = true;
+  } else {
+    g.style.display = 'none';
+    f.required = false;
+    f.value = '';
+  }
+});
+
+// Hint: categoría existente vs nueva
+document.getElementById('p10-profesion').addEventListener('input', function() {
+  const v = this.value.trim();
+  const hint = document.getElementById('p10-profesion-hint');
+  if (!v) { hint.textContent = ''; return; }
+  const existe = P10_CATEGORIAS.some(n => n.toLowerCase() === v.toLowerCase());
+  hint.textContent = existe ? '✓ Categoría existente' : 'Nueva categoría — la agregaremos a nuestro catálogo';
+  hint.style.color = existe ? '#0a7' : '#666';
+});
+
 document.getElementById('p10-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('p10-submit');
@@ -409,7 +451,26 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
   const email = document.getElementById('p10-email').value.trim();
   const leadType = document.getElementById('p10-type').value || 'prospect';
   const city = document.getElementById('p10-city').value.trim() || null;
+  const profesion = document.getElementById('p10-profesion').value.trim();
   const params = new URLSearchParams(window.location.search);
+
+  // Si es profesional con profesión nueva, registrarla
+  if (leadType === 'professional' && profesion) {
+    const existe = P10_CATEGORIAS.some(n => n.toLowerCase() === profesion.toLowerCase());
+    if (!existe) {
+      try {
+        await fetch(ODI_API + '/api/categorias/nueva', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre: profesion })
+        });
+      } catch(_) {}
+    }
+  }
+
+  const interests = leadType === 'professional'
+    ? ['registro_profesional', ...(profesion ? [profesion] : [])]
+    : [];
 
   try {
     const resp = await fetch(ODI_API + '/api/leads/capture', {
@@ -419,7 +480,8 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
         name, email, phone: null, city,
         industry_id: "p10", brand_id: "profesionales10",
         lead_type: leadType,
-        interests: leadType === 'professional' ? ['registro_profesional'] : [],
+        interests,
+        profesion: profesion || null,
         source: "landing", source_url: window.location.href,
         utm_source: params.get('utm_source'),
         utm_medium: params.get('utm_medium'),
