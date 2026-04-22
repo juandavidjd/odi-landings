@@ -364,10 +364,10 @@
           <option value="prospect">Busco un profesional para un servicio</option>
         </select>
       </div>
-      <div class="form-group" id="p10-profesion-group" style="display:none;">
+      <div class="form-group" id="p10-profesion-group" style="display:none;position:relative;">
         <label for="p10-profesion">¿Cuál es tu profesión o servicio?</label>
-        <input id="p10-profesion" type="text" list="p10-categorias-list" placeholder="Plomería, Electricidad, Carpintería..." autocomplete="off">
-        <datalist id="p10-categorias-list"></datalist>
+        <input id="p10-profesion" type="text" placeholder="Escribe para ver sugerencias..." autocomplete="off">
+        <div id="p10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
         <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
       </div>
       <div class="form-group">
@@ -411,33 +411,65 @@ let P10_CATEGORIAS = [];
     const r = await fetch(ODI_API + '/categorias');
     const d = await r.json();
     P10_CATEGORIAS = (d.categorias || []).map(c => c.nombre_es);
-    const dl = document.getElementById('p10-categorias-list');
-    dl.innerHTML = P10_CATEGORIAS.map(n => `<option value="${n}">`).join('');
   } catch(e) { console.error('No se pudieron cargar categorías:', e); }
 })();
+
+const p10ProfInput = document.getElementById('p10-profesion');
+const p10ProfSugs = document.getElementById('p10-sugerencias');
+const p10ProfHint = document.getElementById('p10-profesion-hint');
 
 // Mostrar/ocultar campo profesión según tipo
 document.getElementById('p10-type').addEventListener('change', function() {
   const g = document.getElementById('p10-profesion-group');
-  const f = document.getElementById('p10-profesion');
   if (this.value === 'professional') {
     g.style.display = 'block';
-    f.required = true;
+    p10ProfInput.required = true;
   } else {
     g.style.display = 'none';
-    f.required = false;
-    f.value = '';
+    p10ProfInput.required = false;
+    p10ProfInput.value = '';
+    p10ProfHint.textContent = '';
+    p10ProfSugs.style.display = 'none';
   }
 });
 
-// Hint: categoría existente vs nueva
-document.getElementById('p10-profesion').addEventListener('input', function() {
+// Autocompletado filtrado por inicio de palabra
+function p10RenderSugerencias(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) { p10ProfSugs.style.display = 'none'; return; }
+  const match = P10_CATEGORIAS.filter(c => c.toLowerCase().startsWith(q));
+  if (match.length === 0) { p10ProfSugs.style.display = 'none'; return; }
+  p10ProfSugs.innerHTML = match.map(c =>
+    `<div class="p10-sug-item" style="padding:10px 14px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:0.9rem;" onmouseover="this.style.background='#f0f4fa'" onmouseout="this.style.background='white'" data-val="${c.replace(/"/g,'&quot;')}">${c}</div>`
+  ).join('');
+  p10ProfSugs.style.display = 'block';
+  p10ProfSugs.querySelectorAll('.p10-sug-item').forEach(el => {
+    el.addEventListener('click', () => {
+      p10ProfInput.value = el.dataset.val;
+      p10ProfSugs.style.display = 'none';
+      p10ProfHint.textContent = '✓ Categoría existente';
+      p10ProfHint.style.color = '#0a7';
+    });
+  });
+}
+
+p10ProfInput.addEventListener('input', function() {
+  p10RenderSugerencias(this.value);
   const v = this.value.trim();
-  const hint = document.getElementById('p10-profesion-hint');
-  if (!v) { hint.textContent = ''; return; }
+  if (!v) { p10ProfHint.textContent = ''; return; }
   const existe = P10_CATEGORIAS.some(n => n.toLowerCase() === v.toLowerCase());
-  hint.textContent = existe ? '✓ Categoría existente' : 'Nueva categoría — la agregaremos a nuestro catálogo';
-  hint.style.color = existe ? '#0a7' : '#666';
+  p10ProfHint.textContent = existe ? '✓ Categoría existente' : 'Nueva categoría — la agregaremos a nuestro catálogo';
+  p10ProfHint.style.color = existe ? '#0a7' : '#666';
+});
+
+document.addEventListener('click', function(e) {
+  if (e.target !== p10ProfInput && !p10ProfSugs.contains(e.target)) {
+    p10ProfSugs.style.display = 'none';
+  }
+});
+
+p10ProfInput.addEventListener('focus', function() {
+  if (this.value.trim()) p10RenderSugerencias(this.value);
 });
 
 document.getElementById('p10-form').addEventListener('submit', async function(e) {
