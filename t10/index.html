@@ -381,6 +381,14 @@
         <label for="t10-email">Tu email</label>
         <input id="t10-email" type="email" placeholder="tu@email.com" required>
       </div>
+      <div class="form-group">
+        <label for="t10-city">Ciudad <span style="color:#F42777;">*</span></label>
+        <input id="t10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" required>
+      </div>
+      <div class="form-group">
+        <label for="t10-referido">Referido por</label>
+        <input id="t10-referido" type="text" placeholder="Nombre de quien te invitó (opcional)">
+      </div>
       <div id="t10-interests" style="margin-bottom:18px;">
         <p class="interests-label">¿Qué actividades te interesan? (puedes elegir varias)</p>
         <div class="interests-grid">
@@ -509,6 +517,12 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
 
   const name = document.getElementById('t10-name').value.trim();
   const email = document.getElementById('t10-email').value.trim();
+  const city = document.getElementById('t10-city').value.trim();
+  const referido = document.getElementById('t10-referido').value.trim() || null;
+  if (!city) {
+    showErr('Por favor ingresa tu ciudad');
+    btn.textContent = orig; btn.disabled = false; return;
+  }
   const interests = [];
   document.querySelectorAll('#t10-interests input[type="checkbox"]:checked')
     .forEach(cb => { if (cb.value !== 'otro') interests.push(cb.value); });
@@ -536,15 +550,16 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, email, phone: null, city: null,
+        name, email, phone: null, city,
         industry_id: "t10", brand_id: "teveo10",
         lead_type: "prospect",
         interests,
+        referido_por: referido,
         source: "landing", source_url: window.location.href,
         utm_source: params.get('utm_source'),
         utm_medium: params.get('utm_medium'),
         utm_campaign: params.get('utm_campaign'),
-        referral_code: params.get('ref')
+        referral_code: referido || params.get('ref')
       })
     });
 
