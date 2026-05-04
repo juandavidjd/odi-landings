@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profesionales10 — Profesionales hispanos verificados en Miami</title>
+<title data-i18n="title">Profesionales10 — Profesionales hispanos verificados en Miami</title>
 <meta name="description" content="Directorio inteligente que conecta profesionales verificados con personas que los necesitan en Miami-Dade. Verificación real, calificaciones con evidencia, acompañamiento de principio a fin.">
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.profesionales10.online" />
@@ -34,6 +34,29 @@
     --gray-text: #555;
     --accent: #3B82F6;
   }
+
+  /* LANGUAGE SWITCHER */
+  .lang-switcher {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 5;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .lang-flag {
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: 0.55;
+    transition: opacity 0.2s, transform 0.2s;
+    user-select: none;
+    padding: 4px 6px;
+    border-radius: 6px;
+  }
+  .lang-flag:hover { opacity: 0.85; }
+  .lang-flag.active { opacity: 1; transform: scale(1.1); }
 
   /* HERO */
   .hero {
@@ -264,12 +287,13 @@
     border: 1px solid rgba(255,255,255,0.1);
   }
   .footer-info { font-size: 0.75rem; opacity: 0.5; }
-  .footer-en { font-size: 0.7rem; opacity: 0.4; margin-top: 12px; font-style: italic; max-width:500px; margin-left:auto; margin-right:auto; }
 
   @media (max-width: 500px) {
     .hero h1 { font-size:2rem; }
     .hero h2 { font-size:1.05rem; }
     .audience-grid { grid-template-columns: 1fr; }
+    .lang-switcher { top: 12px; right: 12px; }
+    .lang-flag { font-size: 1.3rem; }
   }
 </style>
 </head>
@@ -279,18 +303,22 @@
 <section class="hero" style="padding-top:30px;">
   <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
   <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
+  <div class="lang-switcher">
+    <span class="lang-flag" data-lang="es" onclick="setLanguage('es')" title="Español">🇪🇸</span>
+    <span class="lang-flag" data-lang="en" onclick="setLanguage('en')" title="English">🇺🇸</span>
+  </div>
   <div style="text-align:left;padding:0 24px 8px;position:relative;z-index:2;">
     <img src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10" style="height:100px;width:auto;display:block;margin-bottom:-8px;">
-    <p style="margin:0;padding-left:8px;font-size:0.95rem;font-weight:300;color:#ffffff;letter-spacing:0.5px;font-family:'Nunito',sans-serif;font-style:italic;opacity:0.9;">Confianza real, excelencia en sus servicios</p>
+    <p data-i18n="slogan" style="margin:0;padding-left:8px;font-size:0.95rem;font-weight:300;color:#ffffff;letter-spacing:0.5px;font-family:'Nunito',sans-serif;font-style:italic;opacity:0.9;">Confianza real, excelencia en sus servicios</p>
   </div>
-  <div class="hero-badge" style="font-size:0.85rem;font-weight:600;color:#ffffff;background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.35);">Somos un puente de contacto</div>
-  <h1>Servicios confiables<br>para la comunidad hispana en Miami.</h1>
-  <h2>El directorio inteligente que conecta profesionales verificados con personas que los necesitan.</h2>
-  <p style="max-width:600px;margin:0 auto 24px;font-size:0.95rem;opacity:0.8;line-height:1.6;">
+  <div class="hero-badge" data-i18n="hero_badge" style="font-size:0.85rem;font-weight:600;color:#ffffff;background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.35);">Somos un puente de contacto</div>
+  <h1 data-i18n="hero_h1">Servicios confiables<br>para la comunidad hispana en Miami.</h1>
+  <h2 data-i18n="hero_h2">El directorio inteligente que conecta profesionales verificados con personas que los necesitan.</h2>
+  <p data-i18n="hero_desc" style="max-width:600px;margin:0 auto 24px;font-size:0.95rem;opacity:0.8;line-height:1.6;">
     Conectamos profesionales verificados con personas que necesitan sus servicios. Desde la búsqueda hasta la calificación final, un ecosistema inteligente acompaña cada paso para que ambas partes tengan una experiencia que recomendar.
   </p>
-  <p style="font-size:0.85rem;opacity:0.55;margin-bottom:28px;">&#128205; Miami-Dade, FL</p>
-  <a href="#formulario" class="hero-cta">Quiero ser de los primeros &rarr;</a>
+  <p data-i18n="hero_loc" style="font-size:0.85rem;opacity:0.55;margin-bottom:28px;">&#128205; Miami-Dade, FL</p>
+  <a href="#formulario" class="hero-cta" data-i18n="hero_cta">Quiero ser de los primeros &rarr;</a>
 </section>
 
 <!-- VALUE PROPS -->
@@ -299,26 +327,26 @@
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_busqueda.jpg" alt="Búsqueda inteligente">
       <div class="value-card-body">
-        <h3>&#128269; Búsqueda inteligente</h3>
-        <p>Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
+        <h3 data-i18n="val1_h">&#128269; Búsqueda inteligente</h3>
+        <p data-i18n="val1_p">Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_verificacion.jpg" alt="Verificación real">
       <div class="value-card-body">
-        <h3>&#9989; Verificación real</h3>
-        <p>Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.</p>
+        <h3 data-i18n="val2_h">&#9989; Verificación real</h3>
+        <p data-i18n="val2_p">Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/p10_card_reputacion.jpg" alt="Reputación con evidencia">
       <div class="value-card-body">
-        <h3>&#11088; Reputación con evidencia</h3>
-        <p>Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por sí sola.</p>
+        <h3 data-i18n="val3_h">&#11088; Reputación con evidencia</h3>
+        <p data-i18n="val3_p">Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por sí sola.</p>
       </div>
     </div>
   </div>
-  <p style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
+  <p data-i18n="val_outro" style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
     Profesionales10 vive dentro de un ecosistema digital que verifica antes, acompaña durante y mide después. No es un directorio más donde publicas y esperas. Es una plataforma donde la confianza se construye con evidencia real.
   </p>
 </section>
@@ -327,18 +355,18 @@
 <section class="audience-section">
   <div class="audience-grid">
     <div class="audience-block pro">
-      <h2>¿Tienes un oficio, un arte, un don?</h2>
-      <p>No importa si tienes título formal o no. Lo que importa es que haces bien tu trabajo y lo haces con responsabilidad.</p>
-      <p>Profesionales10 te conecta con personas que necesitan lo que tú sabes hacer. Tú pones el servicio. Nosotros ponemos la tecnología.</p>
-      <p style="font-size:0.85rem;color:var(--navy);font-weight:600;">Sin costo por registrarte. Solo pagas una cuota moderadora cuando completas un servicio a través de la plataforma.</p>
-      <a href="#formulario" class="audience-cta pro-btn">Registrarme como profesional &rarr;</a>
+      <h2 data-i18n="aud_pro_h">¿Tienes un oficio, un arte, un don?</h2>
+      <p data-i18n="aud_pro_p1">No importa si tienes título formal o no. Lo que importa es que haces bien tu trabajo y lo haces con responsabilidad.</p>
+      <p data-i18n="aud_pro_p2">Profesionales10 te conecta con personas que necesitan lo que tú sabes hacer. Tú pones el servicio. Nosotros ponemos la tecnología.</p>
+      <p data-i18n="aud_pro_p3" style="font-size:0.85rem;color:var(--navy);font-weight:600;">Sin costo por registrarte. Solo pagas una cuota moderadora cuando completas un servicio a través de la plataforma.</p>
+      <a href="#formulario" class="audience-cta pro-btn" data-i18n="aud_pro_cta">Registrarme como profesional &rarr;</a>
     </div>
     <div class="audience-block cli">
-      <h2>¿Buscas un profesional confiable?</h2>
-      <p>¿Un plomero que hable español? ¿Un electricista verificado? ¿Alguien que cuide tu jardín con responsabilidad?</p>
-      <p>Deja de buscar en grupos de Facebook. Profesionales10 te muestra personas verificadas, calificadas por otros clientes, en tu zona.</p>
-      <p style="font-size:0.85rem;color:var(--accent);font-weight:600;">Buscar es gratis. Siempre.</p>
-      <a href="#formulario" class="audience-cta cli-btn">Avisarme cuando esté listo &rarr;</a>
+      <h2 data-i18n="aud_cli_h">¿Buscas un profesional confiable?</h2>
+      <p data-i18n="aud_cli_p1">¿Un plomero que hable español? ¿Un electricista verificado? ¿Alguien que cuide tu jardín con responsabilidad?</p>
+      <p data-i18n="aud_cli_p2">Deja de buscar en grupos de Facebook. Profesionales10 te muestra personas verificadas, calificadas por otros clientes, en tu zona.</p>
+      <p data-i18n="aud_cli_p3" style="font-size:0.85rem;color:var(--accent);font-weight:600;">Buscar es gratis. Siempre.</p>
+      <a href="#formulario" class="audience-cta cli-btn" data-i18n="aud_cli_cta">Avisarme cuando esté listo &rarr;</a>
     </div>
   </div>
 </section>
@@ -346,60 +374,203 @@
 <!-- FORM -->
 <section class="form-section" id="formulario">
   <div class="form-container">
-    <h2>Sé de los primeros en Profesionales10</h2>
-    <p style="text-align:center;font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:20px;">Muy pronto en Miami-Dade.</p>
+    <h2 data-i18n="form_h">Sé de los primeros en Profesionales10</h2>
+    <p data-i18n="form_sub" style="text-align:center;font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:20px;">Muy pronto en Miami-Dade.</p>
     <form id="p10-form">
       <div class="form-group">
-        <label for="p10-name">Tu nombre</label>
-        <input id="p10-name" type="text" placeholder="Nombre completo" required>
+        <label for="p10-name" data-i18n="lbl_name">Tu nombre</label>
+        <input id="p10-name" type="text" placeholder="Nombre completo" data-i18n-placeholder="ph_name" required>
       </div>
       <div class="form-group">
-        <label for="p10-email">Tu email</label>
-        <input id="p10-email" type="email" placeholder="tu@email.com" required>
+        <label for="p10-email" data-i18n="lbl_email">Tu email</label>
+        <input id="p10-email" type="email" placeholder="tu@email.com" data-i18n-placeholder="ph_email" required>
       </div>
       <div class="form-group">
-        <label for="p10-type">¿Qué te describe mejor?</label>
+        <label for="p10-type" data-i18n="lbl_type">¿Qué te describe mejor?</label>
         <select id="p10-type" required>
-          <option value="">Selecciona una opción</option>
-          <option value="professional">Soy profesional y ofrezco servicios</option>
-          <option value="prospect">Busco un profesional para un servicio</option>
+          <option value="" data-i18n="opt_default">Selecciona una opción</option>
+          <option value="professional" data-i18n="opt_pro">Soy profesional y ofrezco servicios</option>
+          <option value="prospect" data-i18n="opt_cli">Busco un profesional para un servicio</option>
         </select>
       </div>
       <div class="form-group" id="p10-profesion-group" style="display:none;position:relative;">
-        <label for="p10-profesion">¿Cuál es tu profesión o servicio?</label>
-        <input id="p10-profesion" type="text" placeholder="Escribe para ver sugerencias..." autocomplete="off">
+        <label for="p10-profesion" data-i18n="lbl_prof">¿Cuál es tu profesión o servicio?</label>
+        <input id="p10-profesion" type="text" placeholder="Escribe para ver sugerencias..." data-i18n-placeholder="ph_prof" autocomplete="off">
         <div id="p10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
         <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
       </div>
       <div class="form-group">
-        <label for="p10-city">Ciudad <span style="color:#3B82F6;">*</span></label>
-        <input id="p10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" required>
+        <label for="p10-city" data-i18n="lbl_city">Ciudad <span style="color:#3B82F6;">*</span></label>
+        <input id="p10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" data-i18n-placeholder="ph_city" required>
       </div>
-      <button id="p10-submit" type="submit" class="form-submit">Unirme a la lista</button>
+      <button id="p10-submit" type="submit" class="form-submit" data-i18n="btn_submit">Unirme a la lista</button>
       <div id="p10-error" class="form-error"></div>
-      <p class="form-note" style="font-weight:600;color:#444;font-size:0.82rem;">Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.</p>
+      <p class="form-note" data-i18n="form_note" style="font-weight:600;color:#444;font-size:0.82rem;">Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.</p>
     </form>
     <div id="p10-success" class="form-success" style="display:none">
-      <h3>&#10003; ¡Listo! ¡Estás en la lista!</h3>
-      <p>Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.</p>
+      <h3 data-i18n="success_h">&#10003; ¡Listo! ¡Estás en la lista!</h3>
+      <p data-i18n="success_p">Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.</p>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-info" style="font-size:0.85rem;opacity:0.8;margin-bottom:20px;">
+  <div class="footer-info" style="font-size:0.85rem;opacity:0.8;margin-bottom:20px;" data-i18n="footer_info">
     Profesionales10 LLC &mdash; Miami, Florida<br>
     info@profesionales10.online
   </div>
   <hr style="border:none;border-top:1px solid rgba(255,255,255,0.12);max-width:400px;margin:0 auto 20px;">
-  <div class="footer-disclaimer">
+  <div class="footer-disclaimer" data-i18n="footer_disclaimer">
     Profesionales10 es solo un puente de contacto. No participa en negociaciones ni acuerdos de valores o pagos entre cliente y profesional.
   </div>
-  <div class="footer-en">
-    Profesionales10 is only a contact bridge. It does not participate in negotiations or payment agreements between client and professional.
-  </div>
 </footer>
+
+<script>
+// I18N — Profesionales10 (ES default, EN switcher)
+const TRANSLATIONS = {
+  es: {
+    title: "Profesionales10 — Profesionales hispanos verificados en Miami",
+    slogan: "Confianza real, excelencia en sus servicios",
+    hero_badge: "Somos un puente de contacto",
+    hero_h1: "Servicios confiables<br>para la comunidad hispana en Miami.",
+    hero_h2: "El directorio inteligente que conecta profesionales verificados con personas que los necesitan.",
+    hero_desc: "Conectamos profesionales verificados con personas que necesitan sus servicios. Desde la búsqueda hasta la calificación final, un ecosistema inteligente acompaña cada paso para que ambas partes tengan una experiencia que recomendar.",
+    hero_loc: "&#128205; Miami-Dade, FL",
+    hero_cta: "Quiero ser de los primeros &rarr;",
+    val1_h: "&#128269; Búsqueda inteligente",
+    val1_p: "Escribe lo que necesitas. Nuestro sistema encuentra al profesional correcto en tu zona. Sin listas interminables.",
+    val2_h: "&#9989; Verificación real",
+    val2_p: "Cada profesional pasa verificación de identidad. Documento más rostro en 60 segundos. Sabes con quién estás hablando.",
+    val3_h: "&#11088; Reputación con evidencia",
+    val3_p: "Calificaciones reales de clientes reales. Con fotos del trabajo terminado. La evidencia habla por sí sola.",
+    val_outro: "Profesionales10 vive dentro de un ecosistema digital que verifica antes, acompaña durante y mide después. No es un directorio más donde publicas y esperas. Es una plataforma donde la confianza se construye con evidencia real.",
+    aud_pro_h: "¿Tienes un oficio, un arte, un don?",
+    aud_pro_p1: "No importa si tienes título formal o no. Lo que importa es que haces bien tu trabajo y lo haces con responsabilidad.",
+    aud_pro_p2: "Profesionales10 te conecta con personas que necesitan lo que tú sabes hacer. Tú pones el servicio. Nosotros ponemos la tecnología.",
+    aud_pro_p3: "Sin costo por registrarte. Solo pagas una cuota moderadora cuando completas un servicio a través de la plataforma.",
+    aud_pro_cta: "Registrarme como profesional &rarr;",
+    aud_cli_h: "¿Buscas un profesional confiable?",
+    aud_cli_p1: "¿Un plomero que hable español? ¿Un electricista verificado? ¿Alguien que cuide tu jardín con responsabilidad?",
+    aud_cli_p2: "Deja de buscar en grupos de Facebook. Profesionales10 te muestra personas verificadas, calificadas por otros clientes, en tu zona.",
+    aud_cli_p3: "Buscar es gratis. Siempre.",
+    aud_cli_cta: "Avisarme cuando esté listo &rarr;",
+    form_h: "Sé de los primeros en Profesionales10",
+    form_sub: "Muy pronto en Miami-Dade.",
+    lbl_name: "Tu nombre",
+    ph_name: "Nombre completo",
+    lbl_email: "Tu email",
+    ph_email: "tu@email.com",
+    lbl_type: "¿Qué te describe mejor?",
+    opt_default: "Selecciona una opción",
+    opt_pro: "Soy profesional y ofrezco servicios",
+    opt_cli: "Busco un profesional para un servicio",
+    lbl_prof: "¿Cuál es tu profesión o servicio?",
+    ph_prof: "Escribe para ver sugerencias...",
+    lbl_city: 'Ciudad <span style="color:#3B82F6;">*</span>',
+    ph_city: "Ej: Miami, Doral, Hialeah",
+    btn_submit: "Unirme a la lista",
+    btn_sending: "Enviando...",
+    form_note: "Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.",
+    success_h: "&#10003; ¡Listo! ¡Estás en la lista!",
+    success_p: "Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.",
+    success_dup: "¡Ya estás en la lista! Te avisaremos cuando abramos.",
+    hint_existing: "✓ Categoría existente",
+    hint_new: "Nueva categoría — la agregaremos a nuestro catálogo",
+    err_city: "Por favor ingresa tu ciudad",
+    err_general: "No pudimos completar el registro. Intenta nuevamente.",
+    footer_info: "Profesionales10 LLC &mdash; Miami, Florida<br>info@profesionales10.online",
+    footer_disclaimer: "Profesionales10 es solo un puente de contacto. No participa en negociaciones ni acuerdos de valores o pagos entre cliente y profesional."
+  },
+  en: {
+    title: "Profesionales10 — Verified Hispanic professionals in Miami",
+    slogan: "Real trust, excellence in service",
+    hero_badge: "We are a contact bridge",
+    hero_h1: "Trusted services<br>for the Hispanic community in Miami.",
+    hero_h2: "The smart directory that connects verified professionals with the people who need them.",
+    hero_desc: "We connect verified professionals with people who need their services. From the search to the final rating, a smart ecosystem walks alongside every step so both sides have an experience worth recommending.",
+    hero_loc: "&#128205; Miami-Dade, FL",
+    hero_cta: "I want to be among the first &rarr;",
+    val1_h: "&#128269; Smart search",
+    val1_p: "Type what you need. Our system finds the right professional in your area. No endless lists.",
+    val2_h: "&#9989; Real verification",
+    val2_p: "Every professional goes through identity verification. ID plus face in 60 seconds. You know who you are talking to.",
+    val3_h: "&#11088; Reputation with evidence",
+    val3_p: "Real ratings from real clients. With photos of the finished work. The evidence speaks for itself.",
+    val_outro: "Profesionales10 lives inside a digital ecosystem that verifies before, accompanies during, and measures after. It is not just another directory where you post and wait. It is a platform where trust is built with real evidence.",
+    aud_pro_h: "Do you have a trade, an art, a gift?",
+    aud_pro_p1: "It does not matter whether you have a formal degree or not. What matters is that you do your work well and you do it responsibly.",
+    aud_pro_p2: "Profesionales10 connects you with people who need what you know how to do. You bring the service. We bring the technology.",
+    aud_pro_p3: "No cost to sign up. You only pay a moderating fee when you complete a service through the platform.",
+    aud_pro_cta: "Sign up as a professional &rarr;",
+    aud_cli_h: "Looking for a trustworthy professional?",
+    aud_cli_p1: "A plumber who speaks Spanish? A verified electrician? Someone to care for your garden responsibly?",
+    aud_cli_p2: "Stop searching in Facebook groups. Profesionales10 shows you verified people, rated by other clients, in your area.",
+    aud_cli_p3: "Searching is free. Always.",
+    aud_cli_cta: "Let me know when it is ready &rarr;",
+    form_h: "Be among the first on Profesionales10",
+    form_sub: "Coming soon to Miami-Dade.",
+    lbl_name: "Your name",
+    ph_name: "Full name",
+    lbl_email: "Your email",
+    ph_email: "you@email.com",
+    lbl_type: "What best describes you?",
+    opt_default: "Select an option",
+    opt_pro: "I am a professional offering services",
+    opt_cli: "I am looking for a professional for a service",
+    lbl_prof: "What is your profession or service?",
+    ph_prof: "Type to see suggestions...",
+    lbl_city: 'City <span style="color:#3B82F6;">*</span>',
+    ph_city: "E.g.: Miami, Doral, Hialeah",
+    btn_submit: "Join the list",
+    btn_sending: "Sending...",
+    form_note: "We will let you know when Profesionales10 opens its doors.<br>No spam. Only important updates.",
+    success_h: "&#10003; Done! You are on the list!",
+    success_p: "We will let you know when Profesionales10 opens its doors in Miami-Dade.",
+    success_dup: "You are already on the list! We will let you know when we open.",
+    hint_existing: "✓ Existing category",
+    hint_new: "New category — we will add it to our catalog",
+    err_city: "Please enter your city",
+    err_general: "We could not complete the registration. Please try again.",
+    footer_info: "Profesionales10 LLC &mdash; Miami, Florida<br>info@profesionales10.online",
+    footer_disclaimer: "Profesionales10 is only a contact bridge. It does not participate in negotiations or payment agreements between client and professional."
+  }
+};
+
+function T(key) {
+  const lang = localStorage.getItem('odi_lang') || 'es';
+  return (TRANSLATIONS[lang] || TRANSLATIONS.es)[key] || key;
+}
+
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'es';
+  const t = TRANSLATIONS[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] === undefined) return;
+    if (el.tagName === 'TITLE') { document.title = t[key]; return; }
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+    el.innerHTML = t[key];
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  document.documentElement.setAttribute('lang', lang);
+  localStorage.setItem('odi_lang', lang);
+
+  document.querySelectorAll('.lang-flag').forEach(f => {
+    f.classList.toggle('active', f.dataset.lang === lang);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(localStorage.getItem('odi_lang') || 'es');
+});
+</script>
 
 <script>
 // ODI Lead Capture — P10
@@ -448,7 +619,7 @@ function p10RenderSugerencias(query) {
     el.addEventListener('click', () => {
       p10ProfInput.value = el.dataset.val;
       p10ProfSugs.style.display = 'none';
-      p10ProfHint.textContent = '✓ Categoría existente';
+      p10ProfHint.textContent = T('hint_existing');
       p10ProfHint.style.color = '#0a7';
     });
   });
@@ -459,7 +630,7 @@ p10ProfInput.addEventListener('input', function() {
   const v = this.value.trim();
   if (!v) { p10ProfHint.textContent = ''; return; }
   const existe = P10_CATEGORIAS.some(n => n.toLowerCase() === v.toLowerCase());
-  p10ProfHint.textContent = existe ? '✓ Categoría existente' : 'Nueva categoría — la agregaremos a nuestro catálogo';
+  p10ProfHint.textContent = existe ? T('hint_existing') : T('hint_new');
   p10ProfHint.style.color = existe ? '#0a7' : '#666';
 });
 
@@ -476,8 +647,8 @@ p10ProfInput.addEventListener('focus', function() {
 document.getElementById('p10-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('p10-submit');
-  const orig = btn.textContent;
-  btn.textContent = 'Enviando...';
+  const orig = T('btn_submit');
+  btn.textContent = T('btn_sending');
   btn.disabled = true;
 
   const name = document.getElementById('p10-name').value.trim();
@@ -485,7 +656,7 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
   const leadType = document.getElementById('p10-type').value || 'prospect';
   const city = document.getElementById('p10-city').value.trim();
   if (!city) {
-    showErr('Por favor ingresa tu ciudad');
+    showErr(T('err_city'));
     btn.textContent = orig; btn.disabled = false; return;
   }
   const profesion = document.getElementById('p10-profesion').value.trim();
@@ -534,17 +705,17 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
       document.getElementById('p10-form').style.display = 'none';
       const s = document.getElementById('p10-success');
       s.style.display = 'block';
-      if (data && data.status === 'duplicate') s.querySelector('p').textContent = '¡Ya estás en la lista! Te avisaremos cuando abramos.';
+      if (data && data.status === 'duplicate') s.querySelector('p').textContent = T('success_dup');
     } else if (data && data.status === 'duplicate') {
       document.getElementById('p10-form').style.display = 'none';
       const s = document.getElementById('p10-success');
       s.style.display = 'block';
-      s.querySelector('p').textContent = '¡Ya estás en la lista! Te avisaremos cuando abramos.';
+      s.querySelector('p').textContent = T('success_dup');
     } else {
       throw new Error(data?.detail || 'Error ' + resp.status);
     }
   } catch(err) {
-    showErr('No pudimos completar el registro. Intenta nuevamente.');
+    showErr(T('err_general'));
     console.error('Lead capture error:', err);
   } finally {
     btn.disabled = false;

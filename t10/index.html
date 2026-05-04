@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teveo10 — Comunidad hispana en Miami</title>
+<title data-i18n="title">Teveo10 — Comunidad hispana en Miami</title>
 <meta name="description" content="Actividades reales para hispanos en Miami-Dade. Charlas, baile, paseos, karaoke, cine foro, arte. Personas verificadas, comunidad por referidos, experiencias que importan.">
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.teveo10.club" />
@@ -35,6 +35,29 @@
     --gray-light: #faf8fc;
     --gray-text: #555;
   }
+
+  /* LANGUAGE SWITCHER */
+  .lang-switcher {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 5;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .lang-flag {
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: 0.55;
+    transition: opacity 0.2s, transform 0.2s;
+    user-select: none;
+    padding: 4px 6px;
+    border-radius: 6px;
+  }
+  .lang-flag:hover { opacity: 0.85; }
+  .lang-flag.active { opacity: 1; transform: scale(1.1); }
 
   /* HERO */
   .hero {
@@ -299,6 +322,8 @@
     .hero h1 { font-size:2rem; }
     .hero h2 { font-size:1.05rem; }
     .interests-grid { grid-template-columns: 1fr; }
+    .lang-switcher { top: 12px; right: 12px; }
+    .lang-flag { font-size: 1.3rem; }
   }
 </style>
 </head>
@@ -308,17 +333,21 @@
 <section class="hero" style="padding-top:24px;">
   <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
   <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
+  <div class="lang-switcher">
+    <span class="lang-flag" data-lang="es" onclick="setLanguage('es')" title="Español">🇪🇸</span>
+    <span class="lang-flag" data-lang="en" onclick="setLanguage('en')" title="English">🇺🇸</span>
+  </div>
   <div style="text-align:left;padding:0 24px 16px;position:relative;z-index:2;">
     <img src="https://api.liveodi.com/assets/logos/t10_web.png?v=12" alt="Teveo10" style="height:80px;width:auto;display:block;margin-bottom:-6px;">
-    <p style="margin:0;padding-left:8px;font-size:0.95rem;font-weight:300;color:#ffffff;letter-spacing:0.5px;font-family:'Nunito',sans-serif;font-style:italic;opacity:0.9;">Conexiones que trascienden</p>
+    <p data-i18n="slogan" style="margin:0;padding-left:8px;font-size:0.95rem;font-weight:300;color:#ffffff;letter-spacing:0.5px;font-family:'Nunito',sans-serif;font-style:italic;opacity:0.9;">Conexiones que trascienden</p>
   </div>
-  <h1>Conexiones auténticas<br>para hispanos en Miami.</h1>
-  <h2>La comunidad donde personas reales se encuentran, comparten y crecen juntas.</h2>
-  <p class="hero-desc">
+  <h1 data-i18n="hero_h1">Conexiones auténticas<br>para hispanos en Miami.</h1>
+  <h2 data-i18n="hero_h2">La comunidad donde personas reales se encuentran, comparten y crecen juntas.</h2>
+  <p class="hero-desc" data-i18n="hero_desc">
     No somos otra app de citas. Somos un espacio real donde personas reales se encuentran, comparten y crecen juntas. Un ecosistema inteligente conecta personas verificadas con experiencias reales — charlas, baile, paseos, karaoke, cine foro y más.
   </p>
-  <a href="#formulario" class="hero-cta">Quiero ser parte &rarr;</a>
-  <p style="margin-top:20px;font-size:0.8rem;opacity:0.75;letter-spacing:0.5px;position:relative;z-index:2;">Comunidad por referidos &bull; actividades reales &bull; personas verificadas</p>
+  <a href="#formulario" class="hero-cta" data-i18n="hero_cta">Quiero ser parte &rarr;</a>
+  <p data-i18n="hero_tags" style="margin-top:20px;font-size:0.8rem;opacity:0.75;letter-spacing:0.5px;position:relative;z-index:2;">Comunidad por referidos &bull; actividades reales &bull; personas verificadas</p>
 </section>
 
 <!-- VALUE PROPS -->
@@ -327,26 +356,26 @@
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_actividades.jpg?v=2" alt="Actividades reales">
       <div class="value-card-body">
-        <h3>&#127917; Actividades reales</h3>
-        <p>Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.</p>
+        <h3 data-i18n="val1_h">&#127917; Actividades reales</h3>
+        <p data-i18n="val1_p">Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_verificadas.jpg?v=2" alt="Personas verificadas">
       <div class="value-card-body">
-        <h3>&#129309; Personas verificadas</h3>
-        <p>Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.</p>
+        <h3 data-i18n="val2_h">&#129309; Personas verificadas</h3>
+        <p data-i18n="val2_p">Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_proposito.jpg?v=2" alt="Comunidad con propósito">
       <div class="value-card-body">
-        <h3>&#127793; Comunidad con propósito</h3>
-        <p>No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.</p>
+        <h3 data-i18n="val3_h">&#127793; Comunidad con propósito</h3>
+        <p data-i18n="val3_p">No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.</p>
       </div>
     </div>
   </div>
-  <p style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
+  <p data-i18n="val_outro" style="text-align:center;max-width:700px;margin:40px auto 0;font-size:0.95rem;color:#555;line-height:1.7;padding:0 20px;">
     Teveo10 vive dentro de un ecosistema digital que verifica a cada miembro, organiza cada evento y mide la satisfacción de cada experiencia. No es un grupo de WhatsApp más. Es una comunidad con estructura real.
   </p>
 </section>
@@ -354,68 +383,68 @@
 <!-- FOR WHO -->
 <section class="forwho">
   <div class="forwho-card">
-    <h2>Si estás en Miami y...</h2>
+    <h2 data-i18n="forwho_h">Si estás en Miami y...</h2>
     <ul class="forwho-list">
-      <li>Te cansaste de hacer scroll sin encontrar nada real</li>
-      <li>Quieres conocer gente que hable tu idioma y comparta tus valores</li>
-      <li>Buscas actividades, no solo conversaciones</li>
-      <li>Valoras la calidad de las personas sobre la cantidad</li>
+      <li data-i18n="forwho_li1">Te cansaste de hacer scroll sin encontrar nada real</li>
+      <li data-i18n="forwho_li2">Quieres conocer gente que hable tu idioma y comparta tus valores</li>
+      <li data-i18n="forwho_li3">Buscas actividades, no solo conversaciones</li>
+      <li data-i18n="forwho_li4">Valoras la calidad de las personas sobre la cantidad</li>
     </ul>
-    <p class="forwho-text">
+    <p class="forwho-text" data-i18n="forwho_text">
       <strong>Teveo10 es para ti.</strong><br><br>
       No importa en qué etapa de tu vida estés. Lo que importa es que quieras ser parte de una comunidad que se cuida.
     </p>
-    <a href="#formulario" class="forwho-cta">Avisarme cuando inicien &rarr;</a>
+    <a href="#formulario" class="forwho-cta" data-i18n="forwho_cta">Avisarme cuando inicien &rarr;</a>
   </div>
 </section>
 
 <!-- FORM -->
 <section class="form-section" id="formulario">
   <div class="form-container">
-    <h2>Sé parte de Teveo10</h2>
+    <h2 data-i18n="form_h">Sé parte de Teveo10</h2>
     <form id="t10-form">
       <div class="form-group">
-        <label for="t10-name">Tu nombre</label>
-        <input id="t10-name" type="text" placeholder="Nombre completo" required>
+        <label for="t10-name" data-i18n="lbl_name">Tu nombre</label>
+        <input id="t10-name" type="text" placeholder="Nombre completo" data-i18n-placeholder="ph_name" required>
       </div>
       <div class="form-group">
-        <label for="t10-email">Tu email</label>
-        <input id="t10-email" type="email" placeholder="tu@email.com" required>
+        <label for="t10-email" data-i18n="lbl_email">Tu email</label>
+        <input id="t10-email" type="email" placeholder="tu@email.com" data-i18n-placeholder="ph_email" required>
       </div>
       <div class="form-group">
-        <label for="t10-city">Ciudad <span style="color:#F42777;">*</span></label>
-        <input id="t10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" required>
+        <label for="t10-city" data-i18n="lbl_city">Ciudad <span style="color:#F42777;">*</span></label>
+        <input id="t10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" data-i18n-placeholder="ph_city" required>
       </div>
       <div class="form-group">
-        <label for="t10-referido">Referido por</label>
-        <input id="t10-referido" type="text" placeholder="Nombre de quien te invitó (opcional)">
+        <label for="t10-referido" data-i18n="lbl_referido">Referido por</label>
+        <input id="t10-referido" type="text" placeholder="Nombre de quien te invitó (opcional)" data-i18n-placeholder="ph_referido">
       </div>
       <div id="t10-interests" style="margin-bottom:18px;">
-        <p class="interests-label">¿Qué actividades te interesan? (puedes elegir varias)</p>
+        <p class="interests-label" data-i18n="interests_lbl">¿Qué actividades te interesan? (puedes elegir varias)</p>
         <div class="interests-grid">
-          <label class="interest-item"><input type="checkbox" value="charlas"> Charlas y conversatorios</label>
-          <label class="interest-item"><input type="checkbox" value="baile"> Clases de baile</label>
-          <label class="interest-item"><input type="checkbox" value="paseos"> Paseos y excursiones</label>
-          <label class="interest-item"><input type="checkbox" value="karaoke"> Karaoke</label>
-          <label class="interest-item"><input type="checkbox" value="cine_foro"> Cine foro</label>
-          <label class="interest-item"><input type="checkbox" value="arte"> Arte y exposiciones</label>
-          <label class="interest-item"><input type="checkbox" value="crecimiento"> Crecimiento personal</label>
-          <label class="interest-item"><input type="checkbox" value="cocina"> Cocina y recetas</label>
-          <label class="interest-item"><input type="checkbox" id="t10-otro-check" value="otro"> Otro</label>
+          <label class="interest-item"><input type="checkbox" value="charlas"> <span data-i18n="act_charlas">Charlas y conversatorios</span></label>
+          <label class="interest-item"><input type="checkbox" value="baile"> <span data-i18n="act_baile">Clases de baile</span></label>
+          <label class="interest-item"><input type="checkbox" value="paseos"> <span data-i18n="act_paseos">Paseos y excursiones</span></label>
+          <label class="interest-item"><input type="checkbox" value="karaoke"> <span data-i18n="act_karaoke">Karaoke</span></label>
+          <label class="interest-item"><input type="checkbox" value="cine_foro"> <span data-i18n="act_cine">Cine foro</span></label>
+          <label class="interest-item"><input type="checkbox" value="arte"> <span data-i18n="act_arte">Arte y exposiciones</span></label>
+          <label class="interest-item"><input type="checkbox" value="crecimiento"> <span data-i18n="act_crecimiento">Crecimiento personal</span></label>
+          <label class="interest-item"><input type="checkbox" value="cocina"> <span data-i18n="act_cocina">Cocina y recetas</span></label>
+          <label class="interest-item"><input type="checkbox" id="t10-otro-check" value="otro"> <span data-i18n="act_otro">Otro</span></label>
         </div>
         <div id="t10-otro-wrapper" style="display:none;margin-top:10px;position:relative;">
-          <input id="t10-otro-input" type="text" placeholder="¿Qué actividad?" autocomplete="off" style="width:100%;padding:10px 14px;border:2px solid #e0e0e8;border-radius:10px;font-size:0.9rem;font-family:inherit;">
+          <input id="t10-otro-input" type="text" placeholder="¿Qué actividad?" data-i18n-placeholder="ph_otro" autocomplete="off" style="width:100%;padding:10px 14px;border:2px solid #e0e0e8;border-radius:10px;font-size:0.9rem;font-family:inherit;">
           <div id="t10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
           <p id="t10-otro-hint" style="font-size:0.72rem;color:#666;margin-top:6px;"></p>
         </div>
       </div>
-      <button id="t10-submit" type="submit" class="form-submit">Unirme a la lista</button>
+      <button id="t10-submit" type="submit" class="form-submit" data-i18n="btn_submit">Unirme a la lista</button>
       <div id="t10-error" class="form-error"></div>
-      <p class="form-note" style="font-weight:600;color:#444;font-size:0.82rem;">Te contactaremos cuando estemos listos para abrir las puertas.<br>Sin spam. Solo invitaciones que valen la pena.</p>
+      <p class="form-note" data-i18n="form_note" style="font-weight:600;color:#444;font-size:0.82rem;">Te contactaremos cuando estemos listos para abrir las puertas.<br>Sin spam. Solo invitaciones que valen la pena.</p>
     </form>
     <div id="t10-success" class="form-success" style="display:none">
-      <h3>&#10003; ¡Ya estás en la lista!</h3>
-      <p>Teveo10 está construyendo algo especial. Te contactaremos pronto.</p>
+      <h3 data-i18n="success_h">&#10003; ¡Ya estás en la lista!</h3>
+      <p data-i18n="success_p">Teveo10 está construyendo algo especial. Te contactaremos pronto.</p>
     </div>
   </div>
 </section>
@@ -423,18 +452,165 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">Teveo10</div>
-  <div class="footer-info" style="margin-bottom:16px;">
+  <div class="footer-info" style="margin-bottom:16px;" data-i18n="footer_info">
     Miami, Florida<br>
     info@teveo10.club
   </div>
   <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);max-width:400px;margin:0 auto 16px;">
-  <div style="max-width:500px;margin:0 auto 12px;font-size:0.78rem;line-height:1.6;opacity:0.7;">
+  <div data-i18n="footer_disclaimer" style="max-width:500px;margin:0 auto 12px;font-size:0.78rem;line-height:1.6;opacity:0.7;">
     Teveo10 es un espacio comunitario. No es una plataforma de citas ni un servicio de matchmaking.
   </div>
-  <div style="max-width:500px;margin:0 auto;font-size:0.72rem;line-height:1.6;opacity:0.45;font-style:italic;">
-    Teveo10 is a community space. It is not a dating platform or matchmaking service.
-  </div>
 </footer>
+
+<script>
+// I18N — Teveo10 (ES default, EN switcher)
+const TRANSLATIONS = {
+  es: {
+    title: "Teveo10 — Comunidad hispana en Miami",
+    slogan: "Conexiones que trascienden",
+    hero_h1: "Conexiones auténticas<br>para hispanos en Miami.",
+    hero_h2: "La comunidad donde personas reales se encuentran, comparten y crecen juntas.",
+    hero_desc: "No somos otra app de citas. Somos un espacio real donde personas reales se encuentran, comparten y crecen juntas. Un ecosistema inteligente conecta personas verificadas con experiencias reales — charlas, baile, paseos, karaoke, cine foro y más.",
+    hero_cta: "Quiero ser parte &rarr;",
+    hero_tags: "Comunidad por referidos &bull; actividades reales &bull; personas verificadas",
+    val1_h: "&#127917; Actividades reales",
+    val1_p: "Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.",
+    val2_h: "&#129309; Personas verificadas",
+    val2_p: "Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.",
+    val3_h: "&#127793; Comunidad con propósito",
+    val3_p: "No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.",
+    val_outro: "Teveo10 vive dentro de un ecosistema digital que verifica a cada miembro, organiza cada evento y mide la satisfacción de cada experiencia. No es un grupo de WhatsApp más. Es una comunidad con estructura real.",
+    forwho_h: "Si estás en Miami y...",
+    forwho_li1: "Te cansaste de hacer scroll sin encontrar nada real",
+    forwho_li2: "Quieres conocer gente que hable tu idioma y comparta tus valores",
+    forwho_li3: "Buscas actividades, no solo conversaciones",
+    forwho_li4: "Valoras la calidad de las personas sobre la cantidad",
+    forwho_text: "<strong>Teveo10 es para ti.</strong><br><br>No importa en qué etapa de tu vida estés. Lo que importa es que quieras ser parte de una comunidad que se cuida.",
+    forwho_cta: "Avisarme cuando inicien &rarr;",
+    form_h: "Sé parte de Teveo10",
+    lbl_name: "Tu nombre",
+    ph_name: "Nombre completo",
+    lbl_email: "Tu email",
+    ph_email: "tu@email.com",
+    lbl_city: 'Ciudad <span style="color:#F42777;">*</span>',
+    ph_city: "Ej: Miami, Doral, Hialeah",
+    lbl_referido: "Referido por",
+    ph_referido: "Nombre de quien te invitó (opcional)",
+    interests_lbl: "¿Qué actividades te interesan? (puedes elegir varias)",
+    act_charlas: "Charlas y conversatorios",
+    act_baile: "Clases de baile",
+    act_paseos: "Paseos y excursiones",
+    act_karaoke: "Karaoke",
+    act_cine: "Cine foro",
+    act_arte: "Arte y exposiciones",
+    act_crecimiento: "Crecimiento personal",
+    act_cocina: "Cocina y recetas",
+    act_otro: "Otro",
+    ph_otro: "¿Qué actividad?",
+    btn_submit: "Unirme a la lista",
+    btn_sending: "Enviando...",
+    form_note: "Te contactaremos cuando estemos listos para abrir las puertas.<br>Sin spam. Solo invitaciones que valen la pena.",
+    success_h: "&#10003; ¡Ya estás en la lista!",
+    success_p: "Teveo10 está construyendo algo especial. Te contactaremos pronto.",
+    success_dup: "¡Ya estás en la lista! Te contactaremos pronto.",
+    hint_existing: "✓ Actividad existente",
+    hint_new: "Nueva actividad — la agregaremos",
+    err_city: "Por favor ingresa tu ciudad",
+    err_general: "No pudimos completar el registro. Intenta nuevamente.",
+    footer_info: "Miami, Florida<br>info@teveo10.club",
+    footer_disclaimer: "Teveo10 es un espacio comunitario. No es una plataforma de citas ni un servicio de matchmaking."
+  },
+  en: {
+    title: "Teveo10 — Hispanic community in Miami",
+    slogan: "Connections that transcend",
+    hero_h1: "Authentic connections<br>for Hispanics in Miami.",
+    hero_h2: "The community where real people meet, share, and grow together.",
+    hero_desc: "We are not another dating app. We are a real space where real people meet, share, and grow together. A smart ecosystem connects verified people with real experiences — talks, dancing, trips, karaoke, movie forums and more.",
+    hero_cta: "I want to be part of it &rarr;",
+    hero_tags: "Referral-based community &bull; real activities &bull; verified people",
+    val1_h: "&#127917; Real activities",
+    val1_p: "Talks, dance classes, movie forums, karaoke, trips, art exhibitions. There is always something to do and someone to share it with.",
+    val2_h: "&#129309; Verified people",
+    val2_p: "Every member passes identity verification. You come in through a referral from someone already inside. Real trust.",
+    val3_h: "&#127793; Community with purpose",
+    val3_p: "It is not browsing profiles. It is sharing, growing, and creating connections that matter. For people who are looking for something more.",
+    val_outro: "Teveo10 lives inside a digital ecosystem that verifies every member, organizes every event, and measures the satisfaction of every experience. It is not just another WhatsApp group. It is a community with real structure.",
+    forwho_h: "If you are in Miami and...",
+    forwho_li1: "You are tired of scrolling without finding anything real",
+    forwho_li2: "You want to meet people who speak your language and share your values",
+    forwho_li3: "You are looking for activities, not just conversations",
+    forwho_li4: "You value the quality of people over quantity",
+    forwho_text: "<strong>Teveo10 is for you.</strong><br><br>It does not matter what stage of life you are in. What matters is that you want to be part of a community that takes care of itself.",
+    forwho_cta: "Let me know when it starts &rarr;",
+    form_h: "Be part of Teveo10",
+    lbl_name: "Your name",
+    ph_name: "Full name",
+    lbl_email: "Your email",
+    ph_email: "you@email.com",
+    lbl_city: 'City <span style="color:#F42777;">*</span>',
+    ph_city: "E.g.: Miami, Doral, Hialeah",
+    lbl_referido: "Referred by",
+    ph_referido: "Name of who invited you (optional)",
+    interests_lbl: "What activities interest you? (you can choose several)",
+    act_charlas: "Talks and discussions",
+    act_baile: "Dance classes",
+    act_paseos: "Trips and excursions",
+    act_karaoke: "Karaoke",
+    act_cine: "Movie forum",
+    act_arte: "Art and exhibitions",
+    act_crecimiento: "Personal growth",
+    act_cocina: "Cooking and recipes",
+    act_otro: "Other",
+    ph_otro: "Which activity?",
+    btn_submit: "Join the list",
+    btn_sending: "Sending...",
+    form_note: "We will contact you when we are ready to open the doors.<br>No spam. Only invitations worth it.",
+    success_h: "&#10003; You are on the list!",
+    success_p: "Teveo10 is building something special. We will contact you soon.",
+    success_dup: "You are already on the list! We will contact you soon.",
+    hint_existing: "✓ Existing activity",
+    hint_new: "New activity — we will add it",
+    err_city: "Please enter your city",
+    err_general: "We could not complete the registration. Please try again.",
+    footer_info: "Miami, Florida<br>info@teveo10.club",
+    footer_disclaimer: "Teveo10 is a community space. It is not a dating platform or matchmaking service."
+  }
+};
+
+function T(key) {
+  const lang = localStorage.getItem('odi_lang') || 'es';
+  return (TRANSLATIONS[lang] || TRANSLATIONS.es)[key] || key;
+}
+
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'es';
+  const t = TRANSLATIONS[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] === undefined) return;
+    if (el.tagName === 'TITLE') { document.title = t[key]; return; }
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+    el.innerHTML = t[key];
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  document.documentElement.setAttribute('lang', lang);
+  localStorage.setItem('odi_lang', lang);
+
+  document.querySelectorAll('.lang-flag').forEach(f => {
+    f.classList.toggle('active', f.dataset.lang === lang);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(localStorage.getItem('odi_lang') || 'es');
+});
+</script>
 
 <script>
 // ODI Lead Capture — T10
@@ -484,7 +660,7 @@ function t10RenderSugerencias(query) {
     el.addEventListener('click', () => {
       t10OtroInput.value = el.dataset.val;
       t10Sugs.style.display = 'none';
-      t10OtroHint.textContent = '✓ Actividad existente';
+      t10OtroHint.textContent = T('hint_existing');
       t10OtroHint.style.color = '#008B8B';
     });
   });
@@ -495,7 +671,7 @@ t10OtroInput.addEventListener('input', function() {
   const v = this.value.trim();
   if (!v) { t10OtroHint.textContent = ''; return; }
   const existe = T10_ACTIVIDADES.some(n => n.toLowerCase() === v.toLowerCase());
-  t10OtroHint.textContent = existe ? '✓ Actividad existente' : 'Nueva actividad — la agregaremos';
+  t10OtroHint.textContent = existe ? T('hint_existing') : T('hint_new');
   t10OtroHint.style.color = existe ? '#008B8B' : '#666';
 });
 
@@ -512,8 +688,8 @@ t10OtroInput.addEventListener('focus', function() {
 document.getElementById('t10-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('t10-submit');
-  const orig = btn.textContent;
-  btn.textContent = 'Enviando...';
+  const orig = T('btn_submit');
+  btn.textContent = T('btn_sending');
   btn.disabled = true;
 
   const name = document.getElementById('t10-name').value.trim();
@@ -521,7 +697,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
   const city = document.getElementById('t10-city').value.trim();
   const referido = document.getElementById('t10-referido').value.trim() || null;
   if (!city) {
-    showErr('Por favor ingresa tu ciudad');
+    showErr(T('err_city'));
     btn.textContent = orig; btn.disabled = false; return;
   }
   const interests = [];
@@ -571,17 +747,17 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
       document.getElementById('t10-form').style.display = 'none';
       const s = document.getElementById('t10-success');
       s.style.display = 'block';
-      if (data && data.status === 'duplicate') s.querySelector('p').textContent = '¡Ya estás en la lista! Te contactaremos pronto.';
+      if (data && data.status === 'duplicate') s.querySelector('p').textContent = T('success_dup');
     } else if (data && data.status === 'duplicate') {
       document.getElementById('t10-form').style.display = 'none';
       const s = document.getElementById('t10-success');
       s.style.display = 'block';
-      s.querySelector('p').textContent = '¡Ya estás en la lista! Te contactaremos pronto.';
+      s.querySelector('p').textContent = T('success_dup');
     } else {
       throw new Error(data?.detail || 'Error ' + resp.status);
     }
   } catch(err) {
-    showErr('No pudimos completar el registro. Intenta nuevamente.');
+    showErr(T('err_general'));
     console.error('Lead capture error:', err);
   } finally {
     btn.disabled = false;
