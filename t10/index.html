@@ -169,8 +169,9 @@
   .vi-1 { background: var(--teal); }
   .vi-2 { background: var(--magenta); }
   .vi-3 { background: var(--purple); }
-  .value-card h3 { font-size:1.1rem; font-weight:700; color:#1a1a2e; margin-bottom:8px; }
-  .value-card p { font-size:0.9rem; color:var(--gray-text); line-height:1.6; }
+  .value-card-icon { display:block; font-size:1.4rem; line-height:1; margin-bottom:10px; }
+  .value-card h3 { font-size:1.1rem; font-weight:700; color:#1a1a2e; margin-bottom:10px; letter-spacing:-0.01em; }
+  .value-card p { font-size:0.92rem; color:var(--gray-text); line-height:1.65; }
 
   /* FOR WHO */
   .forwho {
@@ -316,14 +317,32 @@
 
   /* FOOTER */
   .footer {
-    padding: 40px 20px;
+    padding: 36px 20px 28px;
     text-align: center;
     background: #1a1a2e;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.65);
   }
-  .footer-brand { font-size:0.9rem; font-weight:700; color:var(--teal); margin-bottom:8px; }
-  .footer-info { font-size: 0.75rem; margin-bottom:8px; }
+  .footer-brand { font-size:1rem; font-weight:700; color:var(--teal); margin-bottom:10px; letter-spacing:0.02em; }
+  .footer-info {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .footer-info .footer-sep { opacity: 0.45; padding: 0 8px; }
+  .footer-info a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+  .footer-disclaimer {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.55);
+  }
   .footer-social { font-size: 0.8rem; color:var(--magenta); margin-top:8px; }
+  @media (max-width: 500px) {
+    .footer { padding: 28px 16px 24px; }
+    .footer-info .footer-sep { display: none; }
+  }
 
   @media (max-width: 500px) {
     .hero h1 { font-size:2rem; }
@@ -365,21 +384,24 @@
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_actividades.jpg?v=2" alt="Actividades reales">
       <div class="value-card-body">
-        <h3 data-i18n="val1_h">&#127917; Actividades reales</h3>
+        <span class="value-card-icon" aria-hidden="true">&#127917;</span>
+        <h3 data-i18n="val1_h">Actividades reales</h3>
         <p data-i18n="val1_p">Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_verificadas.jpg?v=2" alt="Personas verificadas">
       <div class="value-card-body">
-        <h3 data-i18n="val2_h">&#129309; Personas verificadas</h3>
+        <span class="value-card-icon" aria-hidden="true">&#129309;</span>
+        <h3 data-i18n="val2_h">Personas verificadas</h3>
         <p data-i18n="val2_p">Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.</p>
       </div>
     </div>
     <div class="value-card">
       <img class="value-card-img" src="https://api.liveodi.com/assets/logos/t10_card_proposito.jpg?v=2" alt="Comunidad con propósito">
       <div class="value-card-body">
-        <h3 data-i18n="val3_h">&#127793; Comunidad con propósito</h3>
+        <span class="value-card-icon" aria-hidden="true">&#127793;</span>
+        <h3 data-i18n="val3_h">Comunidad con propósito</h3>
         <p data-i18n="val3_p">No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.</p>
       </div>
     </div>
@@ -465,12 +487,10 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">Teveo10</div>
-  <div class="footer-info" style="margin-bottom:16px;" data-i18n="footer_info">
-    Miami, Florida<br>
-    info@teveo10.club
+  <div class="footer-info" data-i18n="footer_info">
+    Miami, Florida<span class="footer-sep">·</span><a href="mailto:info@teveo10.club">info@teveo10.club</a>
   </div>
-  <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);max-width:400px;margin:0 auto 16px;">
-  <div data-i18n="footer_disclaimer" style="max-width:500px;margin:0 auto 12px;font-size:0.78rem;line-height:1.6;opacity:0.7;">
+  <div class="footer-disclaimer" data-i18n="footer_disclaimer">
     Teveo10 es un espacio comunitario. No es una plataforma de citas ni un servicio de matchmaking.
   </div>
 </footer>
@@ -486,11 +506,11 @@ const TRANSLATIONS = {
     hero_desc: "No somos otra app de citas. Somos un espacio real donde personas reales se encuentran, comparten y crecen juntas. Un ecosistema inteligente conecta personas verificadas con experiencias reales — charlas, baile, paseos, karaoke, cine foro y más.",
     hero_cta: "Quiero ser parte &rarr;",
     hero_tags: "Comunidad por referidos &bull; actividades reales &bull; personas verificadas",
-    val1_h: "&#127917; Actividades reales",
+    val1_h: "Actividades reales",
     val1_p: "Charlas, clases de baile, cine foro, karaoke, paseos, exposiciones de arte. Siempre hay algo que hacer y alguien con quien compartir.",
-    val2_h: "&#129309; Personas verificadas",
+    val2_h: "Personas verificadas",
     val2_p: "Cada miembro pasa verificación de identidad. Llegas por referido de alguien que ya está adentro. Confianza de verdad.",
-    val3_h: "&#127793; Comunidad con propósito",
+    val3_h: "Comunidad con propósito",
     val3_p: "No es navegar perfiles. Es compartir, crecer y crear conexiones que importan. Para personas que buscan algo más.",
     val_outro: "Teveo10 vive dentro de un ecosistema digital que verifica a cada miembro, organiza cada evento y mide la satisfacción de cada experiencia. No es un grupo de WhatsApp más. Es una comunidad con estructura real.",
     forwho_h: "Si estás en Miami y...",
@@ -532,7 +552,7 @@ const TRANSLATIONS = {
     hint_new: "Nueva actividad — la agregaremos",
     err_city: "Por favor ingresa tu ciudad",
     err_general: "No pudimos completar el registro. Intenta nuevamente.",
-    footer_info: "Miami, Florida<br>info@teveo10.club",
+    footer_info: 'Miami, Florida<span class="footer-sep">·</span><a href="mailto:info@teveo10.club">info@teveo10.club</a>',
     footer_disclaimer: "Teveo10 es un espacio comunitario. No es una plataforma de citas ni un servicio de matchmaking."
   },
   en: {
@@ -543,11 +563,11 @@ const TRANSLATIONS = {
     hero_desc: "We are not another dating app. We are a real space where real people meet, share, and grow together. A smart ecosystem connects verified people with real experiences — talks, dancing, trips, karaoke, movie forums and more.",
     hero_cta: "I want to be part of it &rarr;",
     hero_tags: "Referral-based community &bull; real activities &bull; verified people",
-    val1_h: "&#127917; Real activities",
+    val1_h: "Real activities",
     val1_p: "Talks, dance classes, movie forums, karaoke, trips, art exhibitions. There is always something to do and someone to share it with.",
-    val2_h: "&#129309; Verified people",
+    val2_h: "Verified people",
     val2_p: "Every member passes identity verification. You come in through a referral from someone already inside. Real trust.",
-    val3_h: "&#127793; Community with purpose",
+    val3_h: "Community with purpose",
     val3_p: "It is not browsing profiles. It is sharing, growing, and creating connections that matter. For people who are looking for something more.",
     val_outro: "Teveo10 lives inside a digital ecosystem that verifies every member, organizes every event, and measures the satisfaction of every experience. It is not just another WhatsApp group. It is a community with real structure.",
     forwho_h: "If you are in Miami and...",
@@ -589,7 +609,7 @@ const TRANSLATIONS = {
     hint_new: "New activity — we will add it",
     err_city: "Please enter your city",
     err_general: "We could not complete the registration. Please try again.",
-    footer_info: "Miami, Florida<br>info@teveo10.club",
+    footer_info: 'Miami, Florida<span class="footer-sep">·</span><a href="mailto:info@teveo10.club">info@teveo10.club</a>',
     footer_disclaimer: "Teveo10 is a community space. It is not a dating platform or matchmaking service."
   }
 };
