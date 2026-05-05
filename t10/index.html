@@ -412,6 +412,10 @@
         <input id="t10-email" type="email" placeholder="tu@email.com" data-i18n-placeholder="ph_email" required>
       </div>
       <div class="form-group">
+        <label for="t10-whatsapp" data-i18n="lbl_whatsapp">WhatsApp</label>
+        <input id="t10-whatsapp" type="tel" placeholder="Ej: +1 786 555 1234 (opcional, para contactarte más rápido)" data-i18n-placeholder="ph_whatsapp">
+      </div>
+      <div class="form-group">
         <label for="t10-city" data-i18n="lbl_city">Ciudad <span style="color:#F42777;">*</span></label>
         <input id="t10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" data-i18n-placeholder="ph_city" required>
       </div>
@@ -492,6 +496,8 @@ const TRANSLATIONS = {
     ph_name: "Nombre completo",
     lbl_email: "Tu email",
     ph_email: "tu@email.com",
+    lbl_whatsapp: "WhatsApp",
+    ph_whatsapp: "Ej: +1 786 555 1234 (opcional, para contactarte más rápido)",
     lbl_city: 'Ciudad <span style="color:#F42777;">*</span>',
     ph_city: "Ej: Miami, Doral, Hialeah",
     lbl_referido: "Referido por",
@@ -547,6 +553,8 @@ const TRANSLATIONS = {
     ph_name: "Full name",
     lbl_email: "Your email",
     ph_email: "you@email.com",
+    lbl_whatsapp: "WhatsApp",
+    ph_whatsapp: "E.g.: +1 786 555 1234 (optional, to reach you faster)",
     lbl_city: 'City <span style="color:#F42777;">*</span>',
     ph_city: "E.g.: Miami, Doral, Hialeah",
     lbl_referido: "Referred by",
@@ -694,6 +702,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
 
   const name = document.getElementById('t10-name').value.trim();
   const email = document.getElementById('t10-email').value.trim();
+  const whatsapp = document.getElementById('t10-whatsapp').value.trim() || null;
   const city = document.getElementById('t10-city').value.trim();
   const referido = document.getElementById('t10-referido').value.trim() || null;
   if (!city) {
@@ -727,7 +736,7 @@ document.getElementById('t10-form').addEventListener('submit', async function(e)
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, email, phone: null, city,
+        name, email, phone: whatsapp, city,
         industry_id: "t10", brand_id: "teveo10",
         lead_type: "prospect",
         interests,

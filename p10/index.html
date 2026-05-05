@@ -386,6 +386,14 @@
         <input id="p10-email" type="email" placeholder="tu@email.com" data-i18n-placeholder="ph_email" required>
       </div>
       <div class="form-group">
+        <label for="p10-whatsapp" data-i18n="lbl_whatsapp">WhatsApp</label>
+        <input id="p10-whatsapp" type="tel" placeholder="Ej: +1 786 555 1234 (opcional, para contactarte más rápido)" data-i18n-placeholder="ph_whatsapp">
+      </div>
+      <div class="form-group">
+        <label for="p10-city" data-i18n="lbl_city">Ciudad <span style="color:#3B82F6;">*</span></label>
+        <input id="p10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" data-i18n-placeholder="ph_city" required>
+      </div>
+      <div class="form-group">
         <label for="p10-type" data-i18n="lbl_type">¿Qué te describe mejor?</label>
         <select id="p10-type" required>
           <option value="" data-i18n="opt_default">Selecciona una opción</option>
@@ -398,10 +406,6 @@
         <input id="p10-profesion" type="text" placeholder="Escribe para ver sugerencias..." data-i18n-placeholder="ph_prof" autocomplete="off">
         <div id="p10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
         <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
-      </div>
-      <div class="form-group">
-        <label for="p10-city" data-i18n="lbl_city">Ciudad <span style="color:#3B82F6;">*</span></label>
-        <input id="p10-city" type="text" placeholder="Ej: Miami, Doral, Hialeah" data-i18n-placeholder="ph_city" required>
       </div>
       <button id="p10-submit" type="submit" class="form-submit" data-i18n="btn_submit">Unirme a la lista</button>
       <div id="p10-error" class="form-error"></div>
@@ -461,6 +465,8 @@ const TRANSLATIONS = {
     ph_name: "Nombre completo",
     lbl_email: "Tu email",
     ph_email: "tu@email.com",
+    lbl_whatsapp: "WhatsApp",
+    ph_whatsapp: "Ej: +1 786 555 1234 (opcional, para contactarte más rápido)",
     lbl_type: "¿Qué te describe mejor?",
     opt_default: "Selecciona una opción",
     opt_pro: "Soy profesional y ofrezco servicios",
@@ -514,6 +520,8 @@ const TRANSLATIONS = {
     ph_name: "Full name",
     lbl_email: "Your email",
     ph_email: "you@email.com",
+    lbl_whatsapp: "WhatsApp",
+    ph_whatsapp: "E.g.: +1 786 555 1234 (optional, to reach you faster)",
     lbl_type: "What best describes you?",
     opt_default: "Select an option",
     opt_pro: "I am a professional offering services",
@@ -653,6 +661,7 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
 
   const name = document.getElementById('p10-name').value.trim();
   const email = document.getElementById('p10-email').value.trim();
+  const whatsapp = document.getElementById('p10-whatsapp').value.trim() || null;
   const leadType = document.getElementById('p10-type').value || 'prospect';
   const city = document.getElementById('p10-city').value.trim();
   if (!city) {
@@ -685,7 +694,7 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, email, phone: null, city,
+        name, email, phone: whatsapp, city,
         industry_id: "p10", brand_id: "profesionales10",
         lead_type: leadType,
         interests,
