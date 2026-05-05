@@ -126,6 +126,7 @@
     z-index: 2;
   }
   .hero-cta:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,0.2); }
+  .hero-logo { height: 100px; width: auto; max-width: 100%; display: block; margin-bottom: -8px; }
 
   /* VALUE PROPS */
   .value-section {
@@ -301,6 +302,7 @@
     .audience-grid { grid-template-columns: 1fr; }
     .lang-switcher { top: 12px; right: 12px; gap: 4px; }
     .lang-flag svg { width: 22px; height: 16px; }
+    .hero-logo { height: 64px; }
   }
 </style>
 </head>
@@ -315,7 +317,7 @@
     <span class="lang-flag" data-lang="en" onclick="setLanguage('en')" title="English" aria-label="English"><svg viewBox="0 0 7410 3900" xmlns="http://www.w3.org/2000/svg"><rect width="7410" height="3900" fill="#b22234"/><path d="M0,450h7410M0,1050h7410M0,1650h7410M0,2250h7410M0,2850h7410M0,3450h7410" stroke="#fff" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg></span>
   </div>
   <div style="text-align:left;padding:0 24px 8px;position:relative;z-index:2;">
-    <img src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10" style="height:100px;width:auto;display:block;margin-bottom:-8px;">
+    <img class="hero-logo" src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10">
     <p data-i18n="slogan" style="margin:0;padding-left:8px;font-size:0.95rem;font-weight:300;color:#ffffff;letter-spacing:0.5px;font-family:'Nunito',sans-serif;font-style:italic;opacity:0.9;">Confianza real, excelencia en sus servicios</p>
   </div>
   <div class="hero-badge" data-i18n="hero_badge" style="font-size:0.85rem;font-weight:600;color:#ffffff;background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.35);">Somos un puente de contacto</div>
