@@ -35,27 +35,34 @@
     --accent: #3B82F6;
   }
 
-  /* LANGUAGE SWITCHER */
+  /* LANGUAGE SWITCHER — SVG flags (emoji 🇪🇸/🇺🇸 falla en Windows/Linux) */
   .lang-switcher {
     position: absolute;
     top: 18px;
     right: 20px;
     z-index: 5;
     display: flex;
-    gap: 4px;
+    gap: 6px;
     align-items: center;
   }
   .lang-flag {
     cursor: pointer;
-    font-size: 1.5rem;
-    line-height: 1;
-    opacity: 0.55;
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.6;
     transition: opacity 0.2s, transform 0.2s;
     user-select: none;
-    padding: 4px 6px;
-    border-radius: 6px;
+    padding: 3px;
+    border-radius: 4px;
   }
-  .lang-flag:hover { opacity: 0.85; }
+  .lang-flag svg {
+    display: block;
+    width: 26px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+  .lang-flag:hover { opacity: 0.9; }
   .lang-flag.active { opacity: 1; transform: scale(1.1); }
 
   /* HERO */
@@ -292,8 +299,8 @@
     .hero h1 { font-size:2rem; }
     .hero h2 { font-size:1.05rem; }
     .audience-grid { grid-template-columns: 1fr; }
-    .lang-switcher { top: 12px; right: 12px; }
-    .lang-flag { font-size: 1.3rem; }
+    .lang-switcher { top: 12px; right: 12px; gap: 4px; }
+    .lang-flag svg { width: 22px; height: 16px; }
   }
 </style>
 </head>
@@ -304,8 +311,8 @@
   <video id="hero-vid-a" class="hero-video" autoplay muted playsinline></video>
   <video id="hero-vid-b" class="hero-video" muted playsinline style="opacity:0;"></video>
   <div class="lang-switcher">
-    <span class="lang-flag" data-lang="es" onclick="setLanguage('es')" title="Español">🇪🇸</span>
-    <span class="lang-flag" data-lang="en" onclick="setLanguage('en')" title="English">🇺🇸</span>
+    <span class="lang-flag" data-lang="es" onclick="setLanguage('es')" title="Español" aria-label="Español"><svg viewBox="0 0 750 500" xmlns="http://www.w3.org/2000/svg"><rect width="750" height="500" fill="#aa151b"/><rect width="750" height="250" y="125" fill="#f1bf00"/></svg></span>
+    <span class="lang-flag" data-lang="en" onclick="setLanguage('en')" title="English" aria-label="English"><svg viewBox="0 0 7410 3900" xmlns="http://www.w3.org/2000/svg"><rect width="7410" height="3900" fill="#b22234"/><path d="M0,450h7410M0,1050h7410M0,1650h7410M0,2250h7410M0,2850h7410M0,3450h7410" stroke="#fff" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg></span>
   </div>
   <div style="text-align:left;padding:0 24px 8px;position:relative;z-index:2;">
     <img src="https://api.liveodi.com/assets/logos/p10_web.png?v=2" alt="Profesionales10" style="height:100px;width:auto;display:block;margin-bottom:-8px;">
