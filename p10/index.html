@@ -432,7 +432,7 @@
         </select>
       </div>
       <div class="form-group" id="p10-profesion-group" style="display:none;position:relative;">
-        <label for="p10-profesion" data-i18n="lbl_prof">¿Cuál es tu profesión o servicio?</label>
+        <label for="p10-profesion" data-i18n="lbl_prof">¿Cuál es tu profesión o servicio? <span style="color:#3B82F6;">*</span></label>
         <input id="p10-profesion" type="text" placeholder="Escribe para ver sugerencias..." data-i18n-placeholder="ph_prof" autocomplete="off">
         <div id="p10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
         <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
@@ -499,7 +499,7 @@ const TRANSLATIONS = {
     opt_default: "Selecciona una opción",
     opt_pro: "Soy profesional y ofrezco servicios",
     opt_cli: "Busco un profesional para un servicio",
-    lbl_prof: "¿Cuál es tu profesión o servicio?",
+    lbl_prof: '¿Cuál es tu profesión o servicio? <span style="color:#3B82F6;">*</span>',
     ph_prof: "Escribe para ver sugerencias...",
     lbl_city: 'Ciudad <span style="color:#3B82F6;">*</span>',
     ph_city: "Ej: Miami, Doral, Hialeah",
@@ -512,6 +512,7 @@ const TRANSLATIONS = {
     hint_existing: "✓ Categoría existente",
     hint_new: "Nueva categoría — la agregaremos a nuestro catálogo",
     err_city: "Por favor ingresa tu ciudad",
+    err_profesion: "Por favor ingresa tu profesión",
     err_general: "No pudimos completar el registro. Intenta nuevamente.",
     footer_info: '<span>Profesionales10 LLC</span><span class="footer-sep">·</span><span>Miami, Florida</span><span class="footer-sep">·</span><a href="mailto:info@profesionales10.online">info@profesionales10.online</a>',
     footer_disclaimer: "Profesionales10 es solo un puente de contacto. No participa en negociaciones ni acuerdos de valores o pagos entre cliente y profesional."
@@ -554,7 +555,7 @@ const TRANSLATIONS = {
     opt_default: "Select an option",
     opt_pro: "I am a professional offering services",
     opt_cli: "I am looking for a professional for a service",
-    lbl_prof: "What is your profession or service?",
+    lbl_prof: 'What is your profession or service? <span style="color:#3B82F6;">*</span>',
     ph_prof: "Type to see suggestions...",
     lbl_city: 'City <span style="color:#3B82F6;">*</span>',
     ph_city: "E.g.: Miami, Doral, Hialeah",
@@ -567,6 +568,7 @@ const TRANSLATIONS = {
     hint_existing: "✓ Existing category",
     hint_new: "New category — we will add it to our catalog",
     err_city: "Please enter your city",
+    err_profesion: "Please enter your profession",
     err_general: "We could not complete the registration. Please try again.",
     footer_info: '<span>Profesionales10 LLC</span><span class="footer-sep">·</span><span>Miami, Florida</span><span class="footer-sep">·</span><a href="mailto:info@profesionales10.online">info@profesionales10.online</a>',
     footer_disclaimer: "Profesionales10 is only a contact bridge. It does not participate in negotiations or payment agreements between client and professional."
@@ -697,6 +699,10 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
     btn.textContent = orig; btn.disabled = false; return;
   }
   const profesion = document.getElementById('p10-profesion').value.trim();
+  if (leadType === 'professional' && !profesion) {
+    showErr(T('err_profesion'));
+    btn.textContent = orig; btn.disabled = false; return;
+  }
   const params = new URLSearchParams(window.location.search);
 
   // Si es profesional con profesión nueva, registrarla
