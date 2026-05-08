@@ -84,6 +84,7 @@
     object-position: center top;
     opacity: 0.3;
     z-index: 0;
+    transition: opacity 0.8s ease;
   }
   .hero-badge {
     display: inline-block;
@@ -781,21 +782,37 @@ function showErr(msg) {
   const blobs = [];
   let idx = 0, current = a, next = b;
 
-  function swap() {
-    idx = (idx + 1) % urls.length;
+  function startCrossfade() {
+    if (current.dataset.fading === '1') return;
+    current.dataset.fading = '1';
     const nextIdx = (idx + 1) % urls.length;
-    next.src = blobs[idx] || urls[idx];
-    next.play();
+    next.src = blobs[nextIdx] || urls[nextIdx];
+    next.currentTime = 0;
+    next.play().catch(() => {});
     next.style.opacity = '0.3';
     current.style.opacity = '0';
+  }
+
+  function finalizeSwap() {
+    current.dataset.fading = '';
+    idx = (idx + 1) % urls.length;
     const tmp = current; current = next; next = tmp;
-    // Prepare next
+    const nextIdx = (idx + 1) % urls.length;
     next.src = blobs[nextIdx] || urls[nextIdx];
     next.load();
   }
 
-  a.addEventListener('ended', swap);
-  b.addEventListener('ended', swap);
+  function onTimeUpdate(e) {
+    const v = e.target;
+    if (v !== current) return;
+    if (!isFinite(v.duration)) return;
+    if (v.duration - v.currentTime <= 0.8) startCrossfade();
+  }
+
+  a.addEventListener('timeupdate', onTimeUpdate);
+  b.addEventListener('timeupdate', onTimeUpdate);
+  a.addEventListener('ended', finalizeSwap);
+  b.addEventListener('ended', finalizeSwap);
 
   // Preload all as blobs
   Promise.all(urls.map((u, i) =>
