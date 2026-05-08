@@ -72,9 +72,13 @@
     background: var(--teal);
     color: var(--white);
     padding: 80px 20px 60px;
+    min-height: 75vh;
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .hero-video {
     position: absolute;
@@ -358,14 +362,7 @@
     .interests-grid { grid-template-columns: 1fr; }
     .lang-switcher { top: 12px; right: 12px; gap: 4px; }
     .lang-flag svg { width: 22px; height: 16px; }
-    .hero { padding: 32px 16px 100px !important; }
-    .hero-video {
-      height: auto;
-      aspect-ratio: 720 / 406;
-      bottom: auto;
-      opacity: 0.3;
-      object-position: center top;
-    }
+    .hero { padding: 24px 16px 60px !important; min-height: 85vh; }
   }
 </style>
 </head>

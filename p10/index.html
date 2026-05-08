@@ -71,9 +71,13 @@
     background: var(--navy);
     color: var(--white);
     padding: 80px 20px 60px;
+    min-height: 75vh;
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .hero-video {
     position: absolute;
@@ -321,14 +325,7 @@
     .lang-flag svg { width: 22px; height: 16px; }
     .hero-logo { height: 80px; }
     .hero-brand { padding: 0 12px 8px !important; }
-    .hero { padding: 40px 16px 100px !important; }
-    .hero-video {
-      height: auto;
-      aspect-ratio: 720 / 406;
-      bottom: auto;
-      opacity: 0.3;
-      object-position: center top;
-    }
+    .hero { padding: 30px 16px 60px !important; min-height: 85vh; }
   }
 </style>
 </head>
