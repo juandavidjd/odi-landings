@@ -629,14 +629,13 @@ const p10ProfSugs = document.getElementById('p10-sugerencias');
 const p10ProfHint = document.getElementById('p10-profesion-hint');
 
 // Mostrar/ocultar campo profesión según tipo
+// Validación de obligatoriedad ocurre en submit handler con showErr custom
 document.getElementById('p10-type').addEventListener('change', function() {
   const g = document.getElementById('p10-profesion-group');
   if (this.value === 'professional') {
     g.style.display = 'block';
-    p10ProfInput.required = true;
   } else {
     g.style.display = 'none';
-    p10ProfInput.required = false;
     p10ProfInput.value = '';
     p10ProfHint.textContent = '';
     p10ProfSugs.style.display = 'none';
