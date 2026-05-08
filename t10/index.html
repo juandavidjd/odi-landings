@@ -357,8 +357,14 @@
     .interests-grid { grid-template-columns: 1fr; }
     .lang-switcher { top: 12px; right: 12px; gap: 4px; }
     .lang-flag svg { width: 22px; height: 16px; }
-    .hero { padding: 20px 16px 60px !important; }
-    .hero-video { height: 60%; opacity: 0.22; object-position: center top; }
+    .hero { padding: 32px 16px 100px !important; }
+    .hero-video {
+      height: auto;
+      aspect-ratio: 720 / 406;
+      bottom: auto;
+      opacity: 0.3;
+      object-position: center top;
+    }
   }
 </style>
 </head>
