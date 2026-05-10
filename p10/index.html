@@ -441,6 +441,9 @@
     <div id="p10-success" class="form-success" style="display:none">
       <h3 data-i18n="success_h">&#10003; ¡Listo! ¡Estás en la lista!</h3>
       <p data-i18n="success_p">Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.</p>
+      <p data-i18n="success_share_intro" style="margin-top:18px;font-size:0.9rem;color:#444;">¿Conoces a alguien que también necesite Profesionales10?</p>
+      <button type="button" id="p10-share" data-i18n="success_share_btn" style="margin-top:8px;padding:10px 22px;border:0;border-radius:24px;background:var(--navy);color:#fff;font-weight:600;cursor:pointer;font-size:0.95rem;">Compartir con un colega</button>
+      <p id="p10-share-feedback" style="margin-top:10px;font-size:0.85rem;color:var(--navy);display:none;"></p>
     </div>
   </div>
 </section>
@@ -506,6 +509,10 @@ const TRANSLATIONS = {
     success_h: "&#10003; ¡Listo! ¡Estás en la lista!",
     success_p: "Te avisaremos cuando Profesionales10 abra sus puertas en Miami-Dade.",
     success_dup: "¡Ya estás en la lista! Te avisaremos cuando abramos.",
+    success_share_intro: "¿Conoces a alguien que también necesite Profesionales10?",
+    success_share_btn: "Compartir con un colega",
+    success_share_copied: "✓ Enlace copiado",
+    success_share_thanks: "¡Gracias por compartir!",
     hint_existing: "✓ Categoría existente",
     hint_new: "Nueva categoría — la agregaremos a nuestro catálogo",
     err_city: "Por favor ingresa tu ciudad",
@@ -562,6 +569,10 @@ const TRANSLATIONS = {
     success_h: "&#10003; Done! You are on the list!",
     success_p: "We will let you know when Profesionales10 opens its doors in Miami-Dade.",
     success_dup: "You are already on the list! We will let you know when we open.",
+    success_share_intro: "Know someone who also needs Profesionales10?",
+    success_share_btn: "Share with a colleague",
+    success_share_copied: "✓ Link copied",
+    success_share_thanks: "Thanks for sharing!",
     hint_existing: "✓ Existing category",
     hint_new: "New category — we will add it to our catalog",
     err_city: "Please enter your city",
@@ -767,6 +778,25 @@ function showErr(msg) {
   el.textContent = msg; el.style.display = 'block';
   setTimeout(() => el.style.display = 'none', 5000);
 }
+
+document.getElementById('p10-share').addEventListener('click', async () => {
+  const url = window.location.origin + window.location.pathname;
+  const title = document.title;
+  const text = T('success_share_intro');
+  const fb = document.getElementById('p10-share-feedback');
+  try {
+    if (navigator.share) {
+      await navigator.share({ title, text, url });
+      fb.textContent = T('success_share_thanks');
+      fb.style.display = 'block';
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(url);
+      fb.textContent = T('success_share_copied');
+      fb.style.display = 'block';
+      setTimeout(() => { fb.style.display = 'none'; }, 4000);
+    }
+  } catch (e) { /* user cancelled share — silent */ }
+});
 </script>
 
 <script>
