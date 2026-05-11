@@ -468,6 +468,10 @@
         <div id="p10-sugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #e0e0e8;border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08);"></div>
         <p id="p10-profesion-hint" style="font-size:0.75rem;color:#666;margin-top:6px;"></p>
       </div>
+      <div class="form-group">
+        <label for="p10-referido" data-i18n="lbl_referido">¿Quién te recomendó? (opcional)</label>
+        <input id="p10-referido" type="text" placeholder="Nombre de quien te invitó" data-i18n-placeholder="ph_referido">
+      </div>
       <button id="p10-submit" type="submit" class="form-submit" data-i18n="btn_submit">Unirme a la lista</button>
       <div id="p10-error" class="form-error"></div>
       <p class="form-note" data-i18n="form_note" style="font-weight:600;color:#444;font-size:0.82rem;">Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.</p>
@@ -537,6 +541,8 @@ const TRANSLATIONS = {
     ph_prof: "Escribe para ver sugerencias...",
     lbl_city: 'Ciudad <span style="color:#3B82F6;">*</span>',
     ph_city: "Ej: Miami, Doral, Hialeah",
+    lbl_referido: "¿Quién te recomendó? (opcional)",
+    ph_referido: "Nombre de quien te invitó",
     btn_submit: "Unirme a la lista",
     btn_sending: "Enviando...",
     form_note: "Te avisaremos cuando Profesionales10 abra sus puertas.<br>Sin spam. Solo novedades importantes.",
@@ -597,6 +603,8 @@ const TRANSLATIONS = {
     ph_prof: "Type to see suggestions...",
     lbl_city: 'City <span style="color:#3B82F6;">*</span>',
     ph_city: "E.g.: Miami, Doral, Hialeah",
+    lbl_referido: "Who recommended you? (optional)",
+    ph_referido: "Name of who invited you",
     btn_submit: "Join the list",
     btn_sending: "Sending...",
     form_note: "We will let you know when Profesionales10 opens its doors.<br>No spam. Only important updates.",
@@ -745,6 +753,7 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
     btn.textContent = orig; btn.disabled = false; return;
   }
   const params = new URLSearchParams(window.location.search);
+  const referido = document.getElementById('p10-referido').value.trim() || null;
 
   // Si es profesional con profesión nueva, registrarla
   if (leadType === 'professional' && profesion) {
@@ -778,7 +787,7 @@ document.getElementById('p10-form').addEventListener('submit', async function(e)
         utm_source: params.get('utm_source'),
         utm_medium: params.get('utm_medium'),
         utm_campaign: params.get('utm_campaign'),
-        referral_code: params.get('ref')
+        referral_code: referido || params.get('ref')
       })
     });
 
